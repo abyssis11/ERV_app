@@ -2,3 +2,4 @@ key.txt
 db_settings.txt
 virtual_env
 data/db
+ERV/main/migrations
