@@ -33,7 +33,7 @@ class Worker(models.Model):
 
 
 class ERV(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.DO_NOTHING) # on_delete=models.CASCADE
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
     current_date = models.DateField(default=date.today)
     enter_time = models.TimeField(null=True, blank=True)
     exit_time = models.TimeField(null=True, blank=True)
