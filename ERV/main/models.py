@@ -7,7 +7,7 @@ CATEGORY_CHOICES = {
 }
 
 FLAG_CHOICES = {
-    ('rednovni rad', 'RR'),
+    ('redovni rad', 'RR'),
     ('putni nalog', 'PN'),
     ('bolovanje', 'BO'),
     ('slobodan dan', 'SL'),
@@ -26,6 +26,7 @@ class Job(models.Model):
 class Worker(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
+    active = models.BooleanField(default=True)
     job = models.ForeignKey(Job, on_delete=models.CASCADE) 
 
     def __str__(self):
@@ -37,7 +38,7 @@ class ERV(models.Model):
     current_date = models.DateField(default=date.today)
     enter_time = models.TimeField(null=True, blank=True)
     exit_time = models.TimeField(null=True, blank=True)
-    flag = models.CharField(max_length=14, choices=FLAG_CHOICES)
+    flag = models.CharField(max_length=14, choices=FLAG_CHOICES, blank=True, null=True)
 
     class Meta:
         unique_together = ('worker', 'current_date')
