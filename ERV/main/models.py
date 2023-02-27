@@ -45,3 +45,7 @@ class ERV(models.Model):
 
     def __str__(self):
         return self.worker.name + ' ' + self.worker.surname + ' ' +  str(self.current_date) + ' ' + str(self.enter_time) + ' - ' + str(self.exit_time)
+
+# load fixture sa ./manage.py loaddata data.json
+class Marker(models.Model):
+    value = models.IntegerField(default=0)

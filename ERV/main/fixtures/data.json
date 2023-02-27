@@ -1,0 +1,8 @@
+[
+    {
+        "model": "main.Marker",
+        "fields": {
+            "value": -1
+        }
+    }
+]
