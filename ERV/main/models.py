@@ -39,6 +39,7 @@ class ERV(models.Model):
     enter_time = models.TimeField(null=True, blank=True)
     exit_time = models.TimeField(null=True, blank=True)
     flag = models.CharField(max_length=14, choices=FLAG_CHOICES, blank=True, null=True)
+    processed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('worker', 'current_date')
