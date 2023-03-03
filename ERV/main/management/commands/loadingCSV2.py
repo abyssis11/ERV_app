@@ -9,7 +9,7 @@ ADMINISTRACIJA = ['SPREMAČICE', 'SIC'] # EXPAND
 FORMAT_DATE = '%d.%m.%Y.'
 FORMAT_TIME = '%H:%M:%S'
 
-def ErvExists(worker, date):
+def ervExists(worker, date):
     if ERV.objects.filter(current_date= datetime.strptime(date, FORMAT_DATE), worker__id = worker.id).exists():
         return True
     else:
@@ -18,7 +18,7 @@ def ErvExists(worker, date):
 def isProcessed(name, surname, date):
     if Worker.objects.filter(name__iexact = name, surname__iexact = surname).exists():
         worker = Worker.objects.get(name__iexact = name, surname__iexact = surname)
-        if ErvExists(worker, date):
+        if ervExists(worker, date):
             erv = ERV.objects.get(current_date = datetime.strptime(date, FORMAT_DATE), worker = worker)
             if erv.processed == True:
                 return True
@@ -74,7 +74,7 @@ with open('/app/ERV/main/management/commands/csv_file.csv', 'r+') as csv_file:
 
                 worker = Worker.objects.get(name__iexact = names[i], surname__iexact = surnames[i])
                 # checking if ERV already exsists
-                if ErvExists(worker, row_date[i]):
+                if ervExists(worker, row_date[i]):
                     # updating ERV
 
                     # if there are multiple times after 12pm and difference between them is greater then 2 mins 
