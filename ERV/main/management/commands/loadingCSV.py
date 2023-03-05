@@ -1,6 +1,6 @@
 import csv
 import datetime
-from django.db.models import Q
+# from django.db.models import Q
 from django.db import transaction
 from django.core.management.base import BaseCommand
 from main.models import *
