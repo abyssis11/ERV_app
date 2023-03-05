@@ -12,8 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+
+# aai
+import saml2.saml
+import sys
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_URL = 'https://localhost:8000/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -36,10 +43,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+
+    # aai
+    'djangosaml2',
+    #'rest_framework',
+    'corsheaders',
+    'aai_integration.apps.AaiIntegrationConfig',
+    #'theses.apps.ThesesConfig',
 ]
 
 MIDDLEWARE = [
+    # aai
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +64,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # aai
+    'djangosaml2.middleware.SamlSessionMiddleware'
 ]
 
 ROOT_URLCONF = 'ERV.urls'
@@ -102,6 +122,118 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# aai 
+AUTHENTICATION_BACKENDS = [
+    'aai_integration.backends.AAISAML2Backend'
+]
+
+SAML_CREATE_UNKNOWN_USER = True
+
+SAML_DJANGO_USER_MAIN_ATTRIBUTE = 'username'
+
+SAML_ATTRIBUTE_MAPPING = {
+    'hrEduPersonUniqueID': ('username', 'aai_data.unique_id'),
+    'mail': ('email', ),
+    'givenName': ('first_name',),
+    'sn': ('last_name',),
+    'o': ('aai_data.organization_name',),
+    'hrEduPersonPrimaryAffiliation': ('aai_data.primary_affiliation',),
+    'hrEduPersonExpireDate': ('aai_data.affiliation_expiration_date',),
+    'hrEduPersonStaffCategory': ('aai_data.staff_category',),
+    'hrEduPersonStudentCategory': ('aai_data.student_category',),
+}
+
+SAML_CONFIG = {
+    'debug': 1,
+
+    'xmlsec_binary': '/usr/bin/xmlsec1',
+
+    'entityid': 'http://localhost:8000/saml2/metadata/',
+
+    'service': {
+        'sp': {
+            'name': 'FIDIT Toolkit SP',
+            'endpoints': {
+                'assertion_consumer_service': [('{}/saml2/acs/'.format(BASE_URL), saml2.BINDING_HTTP_POST)],
+                'single_logout_service': [('{}/saml2/ls/'.format(BASE_URL), saml2.BINDING_HTTP_REDIRECT)],
+            },
+            'allow_unsolicited': True,
+            'want_response_signed': False
+        },
+    },
+
+    'metadata': {
+        'remote': [
+            {
+                'url': 'https://fed-lab.aaiedu.hr/sso/saml2/idp/metadata.php',
+                'cert': os.path.join(BASE_DIR, 'aai_integration', 'certificates', 'idp.crt')
+            }
+        ]
+    },
+
+    # certificate
+    'key_file': os.path.join(BASE_DIR, 'aai_integration', 'certificates', 'key.pem'),
+    'cert_file': os.path.join(BASE_DIR, 'aai_integration', 'certificates', 'cert.pem'),
+
+    'attribute_map_dir': os.path.join(BASE_DIR, 'aai_integration', 'attribute_map'),
+}
+
+# Authentication
+
+LOGIN_URL = '/saml2/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SESSION_COOKIE_SECURE = True
+
+# AAI
+
+AAI_PRIVILEGED_ATTRIBUTES = {
+    'o': ('Fed-lab',),
+    'hrEduPersonPrimaryAffiliation': ('djelatnik',)
+}
+
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'basic': {
+            'format': '[%(asctime)s] [%(levelname)s] [%(name)s.%(funcName)s] %(message)s',
+        },
+    },
+
+    'handlers': {
+        'stdout': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+            'level': 'DEBUG',
+            'formatter': 'basic',
+        },
+        'saml2': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'saml2.log'),
+            'maxBytes': 102400,  # 100 KiB
+            'level': 'DEBUG',
+            'formatter': 'basic'
+        }
+    },
+
+    'loggers': {
+        'saml2': {
+            'level': 'DEBUG',
+            'handlers': ['stdout', 'saml2']
+        },
+        'aai_integration.backends': {
+            'level': 'DEBUG',
+            'handlers': ['stdout', 'saml2']
+        }
+    },
+}
+# -----aai
 
 
 # Internationalization
