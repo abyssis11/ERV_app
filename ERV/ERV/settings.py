@@ -20,7 +20,7 @@ import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-BASE_URL = 'https://localhost:8000/'
+BASE_URL = 'http://localhost:8000'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     #'rest_framework',
     'corsheaders',
     'aai_integration.apps.AaiIntegrationConfig',
-    #'theses.apps.ThesesConfig',
 ]
 
 MIDDLEWARE = [
@@ -186,7 +185,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 SESSION_COOKIE_SECURE = True
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # AAI
 
 AAI_PRIVILEGED_ATTRIBUTES = {
