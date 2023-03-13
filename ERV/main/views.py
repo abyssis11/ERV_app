@@ -4,9 +4,11 @@ from main.models import ERV
 
 # Create your views here.
 
-class IndexView(TemplateView):
-    template_name = 'base_generic.html'
-
 class WorkerList(ListView):
     model = ERV
 
+from django.http import HttpResponse
+# Create your views here.
+
+def homepage(request):
+    return render(request, 'base_generic.html')
