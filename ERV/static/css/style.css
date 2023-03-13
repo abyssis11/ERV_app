@@ -1,0 +1,314 @@
+@font-face {
+  font-family: "Dubai-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://fonts.animaapp.com/Dubai-Regular") format("truetype");
+}
+
+@import url("https://fonts.googleapis.com/css?family=Roboro+Serif:400");
+
+.primary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border: 1px none;
+  overflow: hidden;
+  width: 100%;
+  height: 765px;
+}
+
+.nav {
+  display: flex;
+  align-items: flex-start;
+  min-width: 695px;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(250, 250, 250, 1);
+  width: 100%;
+  height: 66px;
+  min-width: 685px;
+  padding: 19px 24px;
+}
+
+.left-nav {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.right-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.overlap-group-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 50%;
+    width: 100%;
+    margin-right: -2px;
+}
+
+.nav .overlap-group-container {
+  height: 275px;
+  margin-right: -2px;
+  position: relative;
+  width: 687px;
+}
+
+.navbar-link {
+    font-weight: bold;
+  padding: 20px;
+  font-family: "Dubai-Regular";
+}
+
+.overlap-group2 {
+  align-self: flex-end;
+  height: 60px;
+  position: absolute;
+  width: 556px;
+}
+
+.decoration-1 {
+  height: 75%;
+  width: 105%;
+  margin-top: 20px;
+}
+
+.decoration-2{
+    height: 90%;
+    width: 100%;
+    top:7px;
+}
+
+.image-2 {
+  align-self: center;
+  margin-top: 1px;
+  object-fit: cover;
+  width: 150px;
+  height: 75px;
+}
+
+.decoration {
+  height: 90%;
+  top: 7px;
+  width: 115%;
+}
+
+.decoration-3{
+    height: 90%;
+    width: 130%;
+    top:7px;
+}
+
+.primary .decoration-4 {
+  border: 1px solid;
+  border-color: rgba(145, 223, 201, 1);
+  left: 0;
+  position: absolute;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.free-space{
+    height: 20%;
+}
+
+.overlap-group {
+  position: relative;
+  height: 45px;
+  width: 116px;
+}
+
+.overlap-group1-1{
+    position: relative;
+    height: 45px;
+    width: 180px;
+}
+
+.overlap-group-1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(250, 250, 250, 1);
+  border: 0.1px solid;
+  border-color: black;
+  height: 38px;
+  left: 8px;
+  min-width: 108px;
+  padding: 1px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.overlap-group1 {
+  display: flex;
+  align-items: center;
+  background-image: url('/static/img/background_erv.png');
+  justify-content: start;
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 95%;
+  width: 100%;
+  left: 0;
+  min-width: 625px;
+}
+
+.overlap-group2-1{
+    position: relative;
+    height: 45px;
+    width: 80px;
+}
+
+.overlap-group-2 {
+  background-color: rgba(250, 250, 250, 1);
+  border: 0.1px solid;
+  border-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 43px;
+  min-width: 547px;
+  padding: 1px 16px;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.overlap-group-3{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgba(250, 250, 250, 1);
+    border: 0.1px solid;
+    height: 38px;
+    width: 159px;
+    left: 7px;
+    padding: 1px 12px;
+    position: absolute;
+    top: 0;
+  }
+
+.overlap-group-4{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(250, 250, 250, 1);
+    border: 0.1px solid;
+    border-color: black;
+    gap: 20px;
+    height: 38px;
+    left: 6px;
+    min-width: 80px;
+    padding: 1px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.overlap-group6 {
+  position: relative;
+  width: 80%;
+  height: 100vh;
+}
+
+.rectangle {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.rectangle-2 {
+  border: 1px solid;
+  border-color: rgba(145, 223, 201, 1);
+}
+
+.filters {
+  display: flex;
+  align-items: flex-start;
+  align-self: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  min-width: 632px;
+}
+
+.odaberi-sastavnicu {
+  align-self: flex-start;
+  color: black;
+  font-family: "Dubai-Regular";
+  font-size: 16px;
+  letter-spacing: 0;
+  font-weight: bold;
+  line-height: 40px;
+  white-space: nowrap;
+}
+
+.evidencija-radnog-vremena {
+  -webkit-text-stroke: 1px rgba(250, 250, 250, 1);
+  color: rgba(250, 250, 250, 1);
+  font-family: "Roboto Serif";
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 0;
+  padding: 2rem;
+}
+
+.pretrazivanje-radnika{
+    font-family: "Dubai-Regular";
+}
+
+.vrsta-posla{
+    font-family: "Dubai-Regular";
+}
+
+.razdoblje{
+    font-family: "Dubai-Regular";
+}
+
+.mjesec{
+    font-family: "Dubai-Regular";
+}
+
+.vector{
+    align-self: center;
+    height: 5px;
+    margin-top: 5px;
+    width: 12px;
+}
+
+.vector-1 {
+  height: 22px;
+  margin-top: 0.7px;
+  width: 18px;
+}
+
+.vector-2{
+    height: 15px;
+    width: 15px;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+}
+
+.data-table{
+    display: flex;
+    align-items: flex-start !important;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    top:-20;
+}
