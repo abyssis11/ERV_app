@@ -1,0 +1,26 @@
+<table>
+    <tr>
+      <th>Ime</th>
+      <th>Prezime</th>
+      <th>Vrijeme ulaza</th>
+      <th>Vrijeme izlaza</th>
+      <th>Datum</th>
+      <th>Šifra</th>
+      <th>Delta vrijeme</th>
+    </tr>
+
+{% if results %}
+    
+    {% for w in results %}
+    <tr>
+      <td>{{w.worker.name}}</td>
+      <td>{{w.worker.surname}}</td>
+      <td>{{w.enter_time}}</td>
+      <td>{{w.exit_time}}</td>
+      <td>{{w.current_date}}</td>
+      <td>{{w.flag}}</td>
+      <td></td>
+    </tr>
+    {% endfor %} 
+{% endif %}
+</table>

@@ -63,7 +63,7 @@
       <div class="main-container">
         <div class="overlap-group-container">
           <div class="overlap-group1">
-            <h1 class="evidencija-radnog-vremena">Evidencija radnog vremena</h1>
+            <h1 class="evidencija-radnog-vremena"><a href="/worker_list">Evidencija radnog vremena</a></h1>
           </div>
           <div class="overlap-group2">
             <div class="decoration-1 decoration-4"></div>
@@ -81,14 +81,9 @@
         <div class="filters">
           <div class="overlap-group1-1">
             <div class="decoration-2 decoration-4"></div>
-            <div class="overlap-group-3">
-              <div class="pretrazivanje-radnika">Pretraživanje radnika</div>
-              <img
-                src="{% static 'img/arrow-down.png' %}"
-                alt="Vector"
-                class="vector-2"
-              />
-            </div>
+            {% include 'partials/search_bar.html' %}
+            <img src="{% static 'img/search-vector.svg' %}" alt="Vector" class="vector-2" />
+          </div>
           </div>
           <div class="overlap-group">
             <div class="decoration decoration-4"></div>
@@ -116,12 +111,21 @@
           <div class="overlap-group2-1">
             <div class="decoration-3 decoration-4"></div>
             <div class="overlap-group-4">
-              <div class="mjesec">Mjesec</div>
-              <img
-                src="{% static 'img/down-vector.svg' %}"
-                alt="Vector"
-                class="vector"
-              />
+              <select hx-get="/search-worker" hx-target="#searched_workers" hx-indicator=".htmx-indicator" name="month" class="mjesec">
+                <option value="" selected>Mjesec</option>
+                <option value="1">Siječanj</option>
+                <option value="2">Veljača</option>
+                <option value="3">Ožujak</option>
+                <option value="4">Travanj</option>
+                <option value="5">Svibanj</option>
+                <option value="6">Lipanj</option>
+                <option value="7">Srpanj</option>
+                <option value="8">Kolovoz</option>
+                <option value="9">Rujan</option>
+                <option value="10">Listopad</option>
+                <option value="11">Studeni</option>
+                <option value="12">Prosinac</option>
+              </select>
             </div>
           </div>
         </div>
@@ -130,8 +134,18 @@
     </div>
     <div class="data-table screen">
       <div class="overlap-group6">
-        <div class="rectangle-2 rectangle"></div>
+        <div id="searched_workers" class="rectangle-2 rectangle">
+          {% include 'partials/result_searched_workers_tables.html' %}
+        {% block content %}
+        {% endblock %}
+      </div>
       </div>
     </div>
+
+    <script>
+      document.body.addEventListener('htmx:configRequest', (event) => {
+          event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+      })
+      </script>
   </body>
 </html>
