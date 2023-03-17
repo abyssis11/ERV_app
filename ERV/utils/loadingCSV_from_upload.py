@@ -2,7 +2,7 @@ from csv import reader
 from main.models import *
 from datetime import datetime
 import os
-from django.core.exceptions import ValidationError
+#from django.core.exceptions import ValidationError
 
 def uploading_csv(csv_url):
     ADMINISTRACIJA = ['SPREMAČICE', 'SIC'] # EXPAND

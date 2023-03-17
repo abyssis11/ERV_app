@@ -5,3 +5,4 @@ data/db
 ERV/main/migrations
 ERV/main/__pycache__
 ERV/ERV/__pycache__
+ERV/utils/__pycache__

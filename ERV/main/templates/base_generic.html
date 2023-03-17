@@ -12,20 +12,14 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
-    <link
-    rel="stylesheet"
-    type="text/css"
-    href="{% static 'bootstrap5/css/bootstrap.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'bootstrap5/css/bootstrap-theme.css' %}"
-    />
-
+    {% load compress %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/costum.scss' %}" rel="stylesheet" media="screen">
+    {% endcompress %}
 
     <title>Evidencija radnog vremena</title>
   </head>
+
   <body>
     <div class="primary screen">
       <div class="nav">
@@ -151,13 +145,27 @@
     <div id="modal" class="modal fade">
       <div id="dialog" class="modal-dialog" hx-target="this"></div>
     </div>
+
+    <div data-toast-container class="toast-container position-fixed top-0 end-0 p-3">
+      <div data-toast-template class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div data-toast-body class="toast-body"></div>
+          <!--<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>-->
+        </div>
+      </div>
+    </div>
     
     <script
     src="https://unpkg.com/htmx.org@1.8.6"
     integrity="sha384-Bj8qm/6B+71E6FQSySofJOUjA/gq330vEqjFx9LakWybUySyI1IQHwPtbTU7bNwx"
     crossorigin="anonymous"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>-->
+    {% load compress %}
+    {% compress js %}
+      <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
+    {% endcompress %}
     <script src="{% static 'js/popup.js' %}"></script>
+    <script src="{% static 'js/toasts.js' %}"></script>
   </body>
 </html>

@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
+from django.contrib import messages
 
 # Create your views here.
 class WorkerList(ListView):
@@ -26,7 +27,10 @@ def upload_csv(request):
             uploading_csv(csv_url)
             
             default_storage.delete(csv_url)
+            
+            messages.success(request, 'Successfully Sent The Message!')
             return HttpResponse(status=200)
         else:
+
             return HttpResponse(status=400)
      
