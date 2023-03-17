@@ -28,9 +28,9 @@ def upload_csv(request):
             
             default_storage.delete(csv_url)
             
-            messages.success(request, 'Successfully Sent The Message!')
+            messages.success(request, 'CSV uspješno učitan')
             return HttpResponse(status=200)
         else:
-
+            messages.error(request, 'Potrebno je odabrati CSV datoteku')
             return HttpResponse(status=400)
      
