@@ -6,3 +6,4 @@ ERV/main/migrations
 ERV/main/__pycache__
 ERV/ERV/__pycache__
 ERV/utils/__pycache__
+ERV/staticfiles/CACHE
