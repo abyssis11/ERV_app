@@ -24,12 +24,16 @@ def upload_csv(request):
             csv_name = default_storage.save('csv_file', csv)
             csv_url = str(BASE_DIR) + default_storage.url(csv_name)
             
-            uploading_csv(csv_url)
+            try:
+                uploading_csv(csv_url)
+                default_storage.delete(csv_url)
+                messages.success(request, 'CSV datoteka uspješno učitana')
+                return HttpResponse(status=200)
+            except:
+                default_storage.delete(csv_url)
+                messages.error(request, 'Problem s CSV datotekom')
+                return HttpResponse(status=400)
             
-            default_storage.delete(csv_url)
-            
-            messages.success(request, 'CSV uspješno učitan')
-            return HttpResponse(status=200)
         else:
             messages.error(request, 'Potrebno je odabrati CSV datoteku')
             return HttpResponse(status=400)
