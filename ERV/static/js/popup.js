@@ -14,3 +14,8 @@ htmx.on("htmx:beforeSwap", (e) => {
     e.detail.shouldSwap = false
   }
 })
+
+// empty the dialog
+htmx.on("hidden.bs.modal", () => {
+  document.getElementById("dialog").innerHTML = ""
+})

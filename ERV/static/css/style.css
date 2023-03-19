@@ -225,6 +225,16 @@
   height: 100vh;
 }
 
+.overlap-group3-1 {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 38px;
+  left: 35px;
+  min-width: 108px;
+  
+}
+
 .rectangle {
   height: 100%;
   position: absolute;
@@ -242,7 +252,7 @@
   align-self: center;
   justify-content: space-between;
   margin-top: 30px;
-  min-width: 632px;
+  min-width: 800px;
 }
 
 .odaberi-sastavnicu {
@@ -331,39 +341,19 @@
 
 .upload-button:hover {opacity: 1}
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* The Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
+.add-button{
+  border-radius: 12px;
+  background-color: #18c354;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  margin: 8px 4px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  cursor: pointer;
+  color: black;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
+.add-button:hover {opacity: 1}

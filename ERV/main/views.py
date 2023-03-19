@@ -6,6 +6,7 @@ from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
 from django.contrib import messages
+from .forms import  ErvForm
 
 # Create your views here.
 class WorkerList(ListView):
@@ -38,3 +39,14 @@ def upload_csv(request):
             messages.error(request, 'Potrebno je odabrati CSV datoteku')
             return HttpResponse(status=400)
      
+def add_erv(request):
+    if request.method == "POST":
+        form = ErvForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(status=200)
+    else:
+        form = ErvForm()
+    return render(request, 'partials/erv_form.html', {
+        'form': form,
+    })

@@ -7,12 +7,12 @@ CATEGORY_CHOICES = {
 }
 
 FLAG_CHOICES = {
-    ('redovni rad', 'RR'),
-    ('putni nalog', 'PN'),
-    ('bolovanje', 'BO'),
-    ('slobodan dan', 'SL'),
-    ('godisnji odmor', 'GO'),
-    ('rad od kuce', 'RK')
+    ('RR', 'redovni rad'),
+    ('PN', 'putni nalog'),
+    ('BO', 'bolovanje'),
+    ('SL', 'slobodan dan'),
+    ('GO', 'godišnji odmor'),
+    ('RK', 'rad od kuće')
 }
 
 
@@ -34,12 +34,12 @@ class Worker(models.Model):
 
 
 class ERV(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE)
-    current_date = models.DateField(default=date.today)
-    enter_time = models.TimeField(null=True, blank=True)
-    exit_time = models.TimeField(null=True, blank=True)
-    flag = models.CharField(max_length=14, choices=FLAG_CHOICES, blank=True, null=True)
-    processed = models.BooleanField(default=False)
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='Radnik')
+    current_date = models.DateField('Datum', default=date.today)
+    enter_time = models.TimeField('Vrijeme ulaska', null=True, blank=True)
+    exit_time = models.TimeField('Vrijeme izlaska', null=True, blank=True)
+    flag = models.CharField('Vrsta rada', max_length=14, choices=FLAG_CHOICES, blank=True, null=True)
+    processed = models.BooleanField('Potvrdi', default=False)
 
     class Meta:
         unique_together = ('worker', 'current_date')
