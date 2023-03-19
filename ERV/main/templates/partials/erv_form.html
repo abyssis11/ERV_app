@@ -9,7 +9,10 @@
 
     <div class="mb-3">
         <label for="{{ form.worker.id_for_label }}" class="form-label">Radnik</label>
-        {% render_field form.worker class="form-control" %}
+        <div  class="input-group">
+          {% render_field form.worker class="form-control" %}
+          <button type="button" class="btn btn-success" hx-get="{% url 'main:add_worker' %}">+</button>
+        </div>
         <div class="invalid-feedback input-medium">{{ form.worker.errors|first }}</div>
       </div>
       

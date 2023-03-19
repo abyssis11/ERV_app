@@ -7,5 +7,6 @@ urlpatterns = [
     path('homepage', views.homepage, name='homepage'),
     path('upload_form', views.upload_form, name='upload_form'),
     path('upload_csv', views.upload_csv, name='upload_csv'),
-    path('add_erv', views.add_erv, name='add_erv')
+    path('add_erv', views.add_erv, name='add_erv'),
+    path('add_worker', views.add_worker, name='add_worker')
 ]
