@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
 from main.models import *
 from django.http import HttpResponse
@@ -58,7 +58,8 @@ def add_worker(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Radnik uspješno dodan')
-            return HttpResponse(status=200)
+            #HttpResponse(status=200)
+            return redirect('main:add_erv')
     else:
         form = WorkerForm()
     return render(request, 'partials/worker_form.html', {

@@ -50,14 +50,10 @@
 
   <div class="modal-footer">
 
-    {% if movie %}
-    <button type="button" class="btn btn-danger" hx-post="{% url 'remove_movie' pk=movie.pk %}">Remove</button>
-    <span class="flex-grow-1"></span>
-    {% endif %}
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-      Cancel
+      Odustani
     </button>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Spremi</button>
 
   </div>
 </form>
