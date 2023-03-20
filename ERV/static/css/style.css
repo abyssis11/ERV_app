@@ -14,7 +14,7 @@
   border: 1px none;
   overflow: hidden;
   width: 100%;
-  height: 765px;
+  height: 100vh;
 }
 
 .nav {
@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     position: relative;
-    height: 50%;
+    height: 75%;
     width: 100%;
     margin-right: -2px;
 }
@@ -101,6 +101,12 @@
   width: 115%;
 }
 
+.decoration-5 {
+  height: 90%;
+  top: 7px;
+  width: 75%;
+}
+
 .decoration-3{
     height: 90%;
     width: 130%;
@@ -117,7 +123,6 @@
 .main-container{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 100%;
     height: 100%;
 }
@@ -129,13 +134,28 @@
 .overlap-group {
   position: relative;
   height: 45px;
-  width: 116px;
+  width: 180px;
 }
 
 .overlap-group1-1{
     position: relative;
     height: 45px;
     width: 200px;
+}
+
+.overlap-group-1-0 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(250, 250, 250, 1);
+  border: 0.1px solid;
+  border-color: black;
+  height: 38px;
+  left: 8px;
+  min-width: 180px;
+  padding: 1px 12px;
+  position: absolute;
+  top: 0;
 }
 
 .overlap-group-1 {
@@ -163,7 +183,7 @@
   height: 95%;
   width: 100%;
   left: 0;
-  min-width: 625px;
+  min-width: 50%px;
 }
 
 .overlap-group2-1{
@@ -220,7 +240,7 @@
 
 .overlap-group6 {
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 100vh;
 }
 
@@ -240,8 +260,11 @@
   align-items: flex-start;
   align-self: center;
   justify-content: space-between;
-  margin-top: 30px;
-  width: 50%;
+  width: 100%;
+}
+
+#myCal{
+  width: 100%;
 }
 
 .odaberi-sastavnicu {
@@ -265,9 +288,6 @@
   padding: 2rem;
 }
 
-input {
-
-}
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: black;
@@ -292,8 +312,6 @@ input {
   outline: none;
 }
 
-
-
 .vrsta-posla{
     font-family: "Dubai-Regular";
 }
@@ -302,7 +320,7 @@ input {
     font-family: "Dubai-Regular";
 }
 
-.mjesec{
+.mjesec, .vrsta-posla{
   color: black;  border-top-style: hidden;
   border-right-style: hidden;
   border-left-style: hidden;
@@ -316,13 +334,6 @@ input {
   box-shadow: none;
 }
 
-select.form-control {
-  -webkit-appearance: none;
-  -webkit-border-radius: 0px;
-  background-image: url("{% static 'img/down-vector.svg' %}");
-  background-position: 100% 50%;
-  background-repeat: no-repeat;
-}
 
 option{
   padding: 1rem;
@@ -364,26 +375,45 @@ table{
   width: 100%;
 }
 
-tr{
+.tr{
   width: 100%;
   border: 0.2px solid;
   border-color: black;
 }
 
-th{ 
+.th{ 
   padding-bottom: 1rem;
   padding-top: 1rem;
   background-color: rgba(127, 255, 212, 0.518);
 }
 
-td{
+.td{
   padding-bottom: 0.4rem;
   padding-top: 0.4rem;
 }
 
 
-th, td{
+.th, .td{
   text-align: left;
   padding-right: 1rem;
   padding-left: 1rem;
 }
+
+.option_title{
+  background-color: rgba(127, 255, 212, 0.518);
+  font-weight: bold;
+}
+
+.button-search{
+  height: 90%;
+  width: 75%;
+  background-color: rgba(127, 255, 212, 0.518);
+  border: 0.5px solid;
+}
+
+.button-search:hover{
+  font-weight: bold;
+  background-color: rgba(127, 255, 212, 0.71);
+  cursor: pointer;
+}
+

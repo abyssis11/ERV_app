@@ -11,12 +11,21 @@
       crossorigin="anonymous"
     ></script>
 
-    {% load static %}
+     {% load static %}
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'css/style.css' %}"
-    />
+    /> 
+    <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'css/styles_calendar.css' %}"
+  /> 
+    <script type="text/javascript" src="{% static 'js/functions_calendar_modified.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/monday_first_day.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/calendar.min.js' %}"></script>
+
     <title>Evidencija radnog vremena</title>
   </head>
   <body>
@@ -77,62 +86,15 @@
             </div>
           </div>
         </div>
+      </div>
+       
+        {% block form %}
+        {% endblock %}
 
-        <div class="filters">
-          <div class="overlap-group1-1">
-            <div class="decoration-2 decoration-4"></div>
-            {% include 'partials/search_bar.html' %}
-            <img src="{% static 'img/search-vector.svg' %}" alt="Vector" class="vector-2" />
-          </div>
-          </div>
-          <div class="overlap-group">
-            <div class="decoration decoration-4"></div>
-            <div class="overlap-group-1">
-              <div class="vrsta-posla">Vrsta posla</div>
-              <img
-                src="{% static 'img/down-vector.svg' %}"
-                alt="Vector"
-                class="vector"
-              />
-            </div>
-          </div>
-          <div class="overlap-group">
-            <div class="decoration decoration-4"></div>
-            <div class="overlap-group-1">
-              <div class="razdoblje">Razdoblje</div>
-              <img
-                src="{% static 'img/down-vector.svg' %}"
-                alt="vector"
-                class="vector"
-              />
-            </div>
-          </div>
-
-          <div class="overlap-group2-1">
-            <div class="decoration-3 decoration-4"></div>
-            <div class="overlap-group-4">
-              <select hx-get="/search-worker" hx-target="#searched_workers" hx-indicator=".htmx-indicator" name="month" class="mjesec">
-                <option value="" selected>Mjesec</option>
-                <option value="1">Siječanj</option>
-                <option value="2">Veljača</option>
-                <option value="3">Ožujak</option>
-                <option value="4">Travanj</option>
-                <option value="5">Svibanj</option>
-                <option value="6">Lipanj</option>
-                <option value="7">Srpanj</option>
-                <option value="8">Kolovoz</option>
-                <option value="9">Rujan</option>
-                <option value="10">Listopad</option>
-                <option value="11">Studeni</option>
-                <option value="12">Prosinac</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="free-space"></div>
+      <div class="free-space"></div>
       </div>
     </div>
-    <div class="data-table screen">
+    <div class="date-table screen">
       <div class="overlap-group6">
         <div id="searched_workers" class="rectangle-2 rectangle">
           {% include 'partials/result_searched_workers_tables.html' %}
@@ -143,9 +105,74 @@
     </div>
 
     <script>
+      let first = 0;
+      window.onload = function() {
+        if(!window.location.href.includes("filter"))
+        {
+          window.location.href += 'filter';
+        }
+      };    
+
       document.body.addEventListener('htmx:configRequest', (event) => {
           event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
       })
+
+      let dateStart = new Date().getUTCFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
+      let dateEnd = new Date(dateStart).getUTCFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
+
+      $(function containText() {
+        $('input[name="daterange"]').daterangepicker({
+          opens: 'left',
+          "showDropdowns": true,
+          "locale": {
+            "format": "YYYY-MM-DD",
+          },
+        }, function(start, end, label) {
+            dateStart = start.format('YYYY-MM-DD');
+            dateEnd = end.format('YYYY-MM-DD');
+            let month, day;
+            if(new Date(dateStart).getMonth()+1 < 10)
+                month = "0"+(new Date(dateStart).getMonth()+1);
+            else 
+                month = new Date(dateStart).getMonth()+1;
+            if(new Date(dateStart).getDate() < 10)
+                day = "0"+new Date(dateStart).getDate();
+            else 
+                day = new Date(dateStart).getDate();
+            let date1 = new Date(dateStart).getFullYear()+"-"+month+"-"+day;
+            if(new Date().getMonth()+1 < 10)
+                month = "0"+(new Date().getMonth()+1);
+            else 
+                month = new Date().getMonth()+1;
+            if(new Date().getDate() < 10)
+                day = "0"+new Date().getDate();
+            else 
+                day = new Date().getDate();
+            let date2 = new Date().getFullYear()+"-"+month+"-"+day;
+            if(new Date(dateEnd).getMonth()+1 < 10)
+                month = "0"+(new Date(dateEnd).getMonth()+1);
+            else 
+                month = new Date(dateEnd).getMonth()+1;
+            if(new Date(dateEnd).getDate() < 10)
+                day = "0"+new Date(dateEnd).getDate();
+            else 
+                day = new Date(dateEnd).getDate();
+            let date3 =  new Date(dateEnd).getFullYear()+"-"+month+"-"+day;
+              
+            if((date1 > date2) || (date3 > date2)){
+                alert("Unesite važeći datum"+ "današnji datum je: "+date2);
+                dateStart = null;
+                dateEnd = null;
+            }else{
+                dateStart = start.format('YYYY-MM-DD');
+                dateEnd = end.format('YYYY-MM-DD');
+            }
+        });
+      });
+    
+      function calendar() {
+        $('input[name="daterange"]').focus();
+      }
       </script>
   </body>
 </html>

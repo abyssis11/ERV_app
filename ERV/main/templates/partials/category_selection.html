@@ -1,0 +1,8 @@
+<select name="category" class="vrsta-posla" hx-get="{% url 'main:category_list' %}" hx-target="#selected_category" hx-trigger="onload">
+    <option class="option_title" value="" selected>Vrsta posla</option>
+    <option value="administracija" >Administracija</option>
+    <option value="nastavnici" >Nastavnici</option>
+    <!-- {% for job in jobs %}
+        <option class="categories" > {{job}} </option>
+    {% endfor %} -->
+</select>

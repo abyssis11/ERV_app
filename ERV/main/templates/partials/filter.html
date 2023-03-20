@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+<!-- {% load static %}
+<link
+rel="stylesheet"
+type="text/css"
+href="{% static 'css/style.css' %}"
+/> -->
+{% block form %}
+<form hx-post="/search-worker" action="{% url 'main:search-worker' %}" autocomplete='off' class="filters">
+    {% csrf_token %}
+      <div class="overlap-group1-1">
+        <div class="decoration-2 decoration-4"></div>
+        <div class="overlap-group-3">
+        <input class="pretrazivanje-radnika" type="text"  name="search_worker" placeholder="Pretraživanje radnika"></input>
+        <img src="{% static 'img/search-vector.svg' %}" alt="Vector" class="vector-2" />
+      </div>
+      </div>
+      <div class="overlap-group">
+        <div class="decoration decoration-4"></div>
+        <div class="overlap-group-1-0">
+          <input id="myCal"  class="cal-content vrsta-posla" type="text" name="daterange" onclick="calendar()"/>
+        </div>
+      </div>
+      <div class="overlap-group">
+        <div class="decoration-5 decoration-4"></div>
+        <div class="overlap-group-1" id="selected_category">
+          {% include 'partials/category_selection.html' %}
+        </div>
+      </div>
+
+      <div class="overlap-group2-1">
+        <div class="decoration-3 decoration-4"></div>
+        <div class="overlap-group-4">
+          <select name="month" class="mjesec">
+            <option class="option_title"  value="" selected>Mjesec</option>
+            <option value="1">Siječanj</option>
+            <option value="2">Veljača</option>
+            <option value="3">Ožujak</option>
+            <option value="4">Travanj</option>
+            <option value="5">Svibanj</option>
+            <option value="6">Lipanj</option>
+            <option value="7">Srpanj</option>
+            <option value="8">Kolovoz</option>
+            <option value="9">Rujan</option>
+            <option value="10">Listopad</option>
+            <option value="11">Studeni</option>
+            <option value="12">Prosinac</option>
+          </select>
+        </div>
+      </div>
+      <div class="overlap-group">
+        <button type="submit" class="button-search" hx-post="{% url 'main:search-worker' %}" hx-target="#searched_workers">Pretraži</button>
+      </div>
+  </form>
+{% endblock %}
