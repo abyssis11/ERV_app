@@ -14,9 +14,9 @@
   <tr class="tr">
     <td class="td">{{w.worker.name}}</td>
     <td class="td">{{w.worker.surname}}</td>
-    <td class="td">{{w.enter_time}}</td>
-    <td class="td">{{w.exit_time}}</td>
-    <td class="td">{{w.current_date}}</td>
+    <td class="td">{{w.enter_time|date:"H:i:s"}}</td>
+    <td class="td">{{w.exit_time|date:"H:i:s"}}</td>
+    <td class="td">{{w.current_date|date:"d/m/y"}}</td>
     <td class="td">{{w.flag}}</td>
     <td class="td"></td>
   </tr>
