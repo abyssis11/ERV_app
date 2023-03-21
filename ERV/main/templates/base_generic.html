@@ -173,6 +173,26 @@
       function calendar() {
         $('input[name="daterange"]').focus();
       }
+
+      let calendarSwitch = document.getElementById("showCal");
+      let calendarItem = document.getElementById("myCal");
+      let textItem = document.getElementById("textShow");
+      let containerCal = document.getElementById("containerCal");
+
+      function check(){
+        if(!calendarSwitch.checked)
+            {
+              calendarItem.style.display = 'none';
+              calendarItem.name = "";
+              textItem.style.display = 'block';
+              containerCal.style.justifyContent = "space-evenly";
+            }else{
+              calendarItem.style.display = 'block'
+              calendarItem.name = "daterange";
+              textItem.style.display = 'none';
+              containerCal.style.justifyContent = "space-between";
+            }
+      }
       </script>
   </body>
 </html>

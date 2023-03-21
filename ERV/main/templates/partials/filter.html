@@ -15,10 +15,12 @@ href="{% static 'css/style.css' %}"
         <img src="{% static 'img/search-vector.svg' %}" alt="Vector" class="vector-2" />
       </div>
       </div>
-      <div class="overlap-group">
+      <div class="overlap-group1-0">
         <div class="decoration decoration-4"></div>
-        <div class="overlap-group-1-0">
+        <div class="overlap-group-1-0" id="containerCal">
           <input id="myCal"  class="cal-content vrsta-posla" type="text" name="daterange" onclick="calendar()"/>
+          <input id="showCal" type="checkbox" checked onclick="check()">
+          <p id="textShow">Prikaži kalendar</p>
         </div>
       </div>
       <div class="overlap-group">
@@ -48,7 +50,7 @@ href="{% static 'css/style.css' %}"
           </select>
         </div>
       </div>
-      <div class="overlap-group">
+      <div class="overlap-group1-2">
         <button type="submit" class="button-search" hx-post="{% url 'main:search-worker' %}" hx-target="#searched_workers">Pretraži</button>
       </div>
   </form>

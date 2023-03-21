@@ -1,27 +1,24 @@
-<!-- {{post}} -->
+{{post}}
 <table>
-    <tr class="tr">
-      <th class="th">Ime</th>
-      <th class="th">Prezime</th>
-      <th class="th">Vrijeme ulaza</th>
-      <th class="th">Vrijeme izlaza</th>
-      <th class="th">Datum</th>
-      <th class="th">Šifra</th>
-      <th class="th">Delta vrijeme</th>
-    </tr>
+  <tr class="tr">
+    <th class="th">Ime</th>
+    <th class="th">Prezime</th>
+    <th class="th">Vrijeme ulaza</th>
+    <th class="th">Vrijeme izlaza</th>
+    <th class="th">Datum</th>
+    <th class="th">Šifra</th>
+    <th class="th">Delta vrijeme</th>
+  </tr>
 
-{% if results %}
-    {{results}}
-    {% for w in results %}
-    <tr class="tr">
-      <td class="td">{{w.worker.name}}</td>
-      <td class="td">{{w.worker.surname}}</td>
-      <td class="td">{{w.enter_time}}</td>
-      <td class="td">{{w.exit_time}}</td>
-      <td class="td">{{w.current_date}}</td>
-      <td class="td">{{w.flag}}</td>
-      <td class="td"></td>
-    </tr>
-    {% endfor %} 
-{% endif %}
+  {% if results %} {{results}} {% for w in results %}
+  <tr class="tr">
+    <td class="td">{{w.worker.name}}</td>
+    <td class="td">{{w.worker.surname}}</td>
+    <td class="td">{{w.enter_time}}</td>
+    <td class="td">{{w.exit_time}}</td>
+    <td class="td">{{w.current_date}}</td>
+    <td class="td">{{w.flag}}</td>
+    <td class="td"></td>
+  </tr>
+  {% endfor %} {% endif %}
 </table>
