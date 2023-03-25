@@ -475,23 +475,6 @@ th.desc:after {
   100% { left: 107%; right: -8%; }
 }
 
-/*
-@keyframes blink {
-0% { background-color: orange; color: white;}
-50% { background-color: orange; color: white; }
-51% { background-color: white; }
-100% { background-color: white; }
-}*/
-
-/*
-.highlight-me {
-  background-color: white;
-  animation-name: blink;
-  animation-duration: 2s;
-  transition-timing-function: ease-in;
-  transition: 0.2s;
-}*/
-
 ul.pagination {
   justify-content: end !important;
 }
