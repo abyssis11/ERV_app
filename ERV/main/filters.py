@@ -27,7 +27,6 @@ def year_choices():
     for y in years:
         y=str(y)
         choices.append((y,) + (y,))
-    print(choices)
     return choices
 
 def job_queryset(request):
@@ -43,14 +42,14 @@ class ErvFilter(django_filters.FilterSet):
     current_date = django_filters.DateFromToRangeFilter(label='', widget=RangeWidget(attrs={'type': 'date'}))
     enter_time = django_filters.TimeFilter(label='', widget=forms.TimeInput(attrs={'type': 'time'}), lookup_expr=('gte'))
     exit_time = django_filters.TimeFilter(label='', widget=forms.TimeInput(attrs={'type': 'time'}), lookup_expr=('lte'))
-    flag = django_filters.ChoiceFilter(label='Vrsta rada', choices=FLAG_CHOICES)
+    flag = django_filters.ChoiceFilter(empty_label='Sve vrste rada', label='Vrsta rada', choices=FLAG_CHOICES)
 
     # costum
-    job_category = django_filters.ChoiceFilter(label='Kategorija posla', choices=CATEGORY_CHOICES, method='category_filter', 
+    job_category = django_filters.ChoiceFilter(empty_label='Sve kategorije', label='Kategorija posla', choices=CATEGORY_CHOICES, method='category_filter', 
                                                widget=forms.Select(attrs={'hx-get':'jobs','hx-trigger':'change', 'hx-target':'#jobs'}))
-    job = django_filters.ModelChoiceFilter(label='Posao', queryset=job_queryset, method='job_filter')
-    month = django_filters.ChoiceFilter(label='Mjesec', choices=MONTH_CHOICES, method='month_filter')
-    year = django_filters.ChoiceFilter(label='Godina', choices=year_choices, method='year_filter')
+    job = django_filters.ModelChoiceFilter(empty_label='Svi poslovi',label='Posao', queryset=job_queryset, method='job_filter')
+    month = django_filters.ChoiceFilter(empty_label='Svi mjeseci', label='Mjesec', choices=MONTH_CHOICES, method='month_filter')
+    year = django_filters.ChoiceFilter(empty_label='Sve godine', label='Godina', choices=year_choices, method='year_filter')
     class Meta:
         model = ERV
         fields = ["year", "month", "job_category", "job", "flag", "worker", "current_date", "enter_time", "exit_time"]

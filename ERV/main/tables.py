@@ -8,9 +8,10 @@ class ProductHTMxMultiColumnTable(tables.Table):
     job = tables.Column(accessor='worker.job')
     month = tables.Column(accessor='current_date__month')
     year = tables.Column(accessor='current_date__year')
-    update_button = tables.LinkColumn('main:edit_erv', text="Uredi", verbose_name='Uredi', args=[A('pk')], attrs={
-    'a': {'class': 'btn btn-primary btn-floating'}
-    })
+    '''update_button = tables.LinkColumn('main:edit_erv', text="Uredi", verbose_name='Uredi', args=[A('pk')], attrs={
+    'a': {'class': 'btn btn-primary btn-floating', 'hx-target':'#dialog', 'hx-trigger':'click'}
+    })'''
+    update_button = tables.TemplateColumn("<button hx-get='{% url 'main:edit_erv' record.id %}' hx-target='#dialog' hx-trigger='click' hx-swap='innerHTML' class='btn btn-primary btn-floating'>Uredi</button>", verbose_name='Uredi')
     class Meta:
         model = ERV
         #show_header = False

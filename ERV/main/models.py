@@ -35,7 +35,7 @@ class Worker(models.Model):
 
 class ERV(models.Model):
     worker = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='Radnik')
-    current_date = models.DateField('Datum', default=date.today)
+    current_date = models.DateField('Razdoblje', default=date.today)
     enter_time = models.TimeField('Vrijeme ulaska', null=True, blank=True)
     exit_time = models.TimeField('Vrijeme izlaska', null=True, blank=True)
     flag = models.CharField('Vrsta rada', max_length=14, choices=FLAG_CHOICES, blank=True, null=True)

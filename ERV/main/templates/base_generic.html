@@ -135,25 +135,23 @@
             </div>
           </div>
 
-          <div class="overlap-group3-1">
-              <button
-              class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
-              hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
-                Dodaj ERV
-              </button>
-          </div>
-
         </div>-->
         <!--<div class="free-space"></div>-->
+        <div class="overlap-group3-1">
+          <button
+          class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
+          hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
+            Dodaj ERV
+          </button>
+      </div>
       </div> 
     </div>
 
-    <!--<div class="data-table screen">
-      <div class="overlap-group6">
-        <div class="rectangle-2 rectangle">
-        </div>
-      </div>
-    </div>-->
+    <div class="container">
+      {% block main %}
+      {% endblock %}
+    </div>
+
     <div id="modal" class="modal fade">
       <div id="dialog" class="modal-dialog" hx-target="this"></div>
     </div>
@@ -167,10 +165,6 @@
       </div>
     </div>
     
-    <div class="container">
-      {% block main %}
-      {% endblock %}
-    </div>
 
     <script
     src="https://unpkg.com/htmx.org@1.8.6"

@@ -12,5 +12,6 @@ urlpatterns = [
     path("erv_table/", views.ErvTable.as_view(), name="erv_table"),
     path('swap_erv_table', views.SwapErvTable.as_view(), name='swap_erv_table'),
     path('erv_table/jobs', views.Jobs.as_view(), name='jobs'),
-    path('edit_erv/<int:pk>/', views.edit_erv, name='edit_erv')
+    path('edit_erv/<int:pk>/', views.edit_erv, name='edit_erv'),
+    path('remove_erv/<int:pk>/', views.remove_erv, name='remove_erv')
 ]

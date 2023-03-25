@@ -49,10 +49,11 @@
   </div>
 
   <div class="modal-footer">
-
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-      Odustani
-    </button>
+    {% if erv %}
+      <button type="button" class="btn btn-danger" hx-post="{% url 'main:remove_erv' erv.pk %}">Remove</button>
+      <span class="flex-grow-1"></span>
+    {% endif %}
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
     <button type="submit" class="btn btn-primary">Spremi</button>
 
   </div>
