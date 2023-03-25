@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, redirect
 from django.views.generic import ListView, TemplateView
 from main.models import *
 from django.http import HttpResponse
@@ -6,6 +6,11 @@ from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
 from django.contrib import messages
+from main.tables import ProductHTMxMultiColumnTable #ProductHTMxTable
+from main.filters import ErvFilter
+from django.core.paginator import Paginator, EmptyPage
+from django_tables2 import SingleTableMixin
+from django_filters.views import FilterView
 from .forms import  ErvForm, WorkerForm
 
 # Create your views here.
@@ -29,7 +34,7 @@ def upload_csv(request):
                 uploading_csv(csv_url)
                 default_storage.delete(csv_url)
                 messages.success(request, 'CSV datoteka uspješno učitana')
-                return HttpResponse(status=200)
+                return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
             except:
                 default_storage.delete(csv_url)
                 messages.error(request, 'Problem s CSV datotekom')
@@ -39,29 +44,3 @@ def upload_csv(request):
             messages.error(request, 'Potrebno je odabrati CSV datoteku')
             return HttpResponse(status=400)
      
-def add_erv(request):
-    if request.method == "POST":
-        form = ErvForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'ERV uspješno dodan')
-            return HttpResponse(status=200)
-    else:
-        form = ErvForm()
-    return render(request, 'partials/erv_form.html', {
-        'form': form,
-    })
-
-def add_worker(request):
-    if request.method == "POST":
-        form = WorkerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Radnik uspješno dodan')
-            #HttpResponse(status=200)
-            return redirect('main:add_erv')
-    else:
-        form = WorkerForm()
-    return render(request, 'partials/worker_form.html', {
-        'form': form,
-    })
