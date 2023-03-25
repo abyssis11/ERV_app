@@ -30,8 +30,10 @@ hx-trigger="Changed from:body" hx-swap="outerHTML">
         <table {% render_attrs table.attrs class="table multi-col-header" %}>
             <thead {{ table.attrs.thead.as_html }}>
                 <div>
+                    <!-- filters for Godina, Mjesec, Kategorija, Posao, Vrsta rada -->
                     {% for field in filter.form %}
                     {% if field.label != ''%}
+                        <!-- updating Posao based on Kategorija -->
                         {% if field.label == 'Posao' %}
                             <div id="jobs">
                                 {{ field|as_crispy_field }}
@@ -59,6 +61,7 @@ hx-trigger="Changed from:body" hx-swap="outerHTML">
                     {% endfor %}
                 </tr>
                 <tr>
+                    <!-- filters for Radnik, Razdoblje, Vrijeme ulaska, Vrijeme izlaska and Uredi-->
                     {% for field in filter.form %}
                     {% if field.label == ''%}
                     <td>
@@ -80,6 +83,7 @@ hx-trigger="Changed from:body" hx-swap="outerHTML">
             <div class="indeterminate"></div>
         </div >
 
+        <!-- table_partial -->
         <div>
         {% render_table table %}
         </div>

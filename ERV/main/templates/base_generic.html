@@ -129,25 +129,29 @@
 
         </div>-->
         <!--<div class="free-space"></div>-->
-        <div class="overlap-group3-1">
-          <button
-          class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
-          hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
-            Dodaj ERV
-          </button>
-      </div>
+
+         <div class="overlap-group3-1">
+            <button
+            class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
+            hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
+              Dodaj ERV
+            </button>
+        </div>
       </div> 
     </div>
 
+    <!-- table_filter -->
     <div class="container">
       {% block main %}
       {% endblock %}
     </div>
 
+    <!--upload and edit form-->
     <div id="modal" class="modal fade">
       <div id="dialog" class="modal-dialog" hx-target="this"></div>
     </div>
 
+    <!-- toasts -->
     <div data-toast-container class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
       <div data-toast-template class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
