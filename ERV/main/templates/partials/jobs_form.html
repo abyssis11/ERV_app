@@ -1,0 +1,8 @@
+{% load crispy_forms_tags %}
+{% for field in filter.form %}
+{% if field.label == 'Posao' %}
+    <div id="jobs">
+    {{ field|as_crispy_field }}
+    </div>
+{% endif %}
+{% endfor %}

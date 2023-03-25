@@ -53,9 +53,9 @@ def uploading_csv(csv_url):
             # adding new job to db
             if not Job.objects.filter(name__iexact=jobs[i]).exists():
                 if jobs[i].upper() in ADMINISTRACIJA:
-                    Job(name = jobs[i], category='administracija').save()
+                    Job(name = jobs[i], category='Administracija').save()
                 else:
-                    Job(name = jobs[i], category='nastavnici').save()
+                    Job(name = jobs[i], category='Nastavnici').save()
             # adding new worker to db
             if not Worker.objects.filter(name__iexact = names[i], surname__iexact = surnames[i]).exists(): 
                 Worker(name = names[i], surname = surnames[i], job = Job.objects.get(name__iexact=jobs[i])).save()
@@ -79,9 +79,9 @@ def uploading_csv(csv_url):
             else:
                 # if the time is lower then 12pm then that is enter time otherwise that is exit time
                 if datetime.strptime(times[i], FORMAT_TIME) <= datetime.strptime('12:00:00', FORMAT_TIME):
-                    ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), enter_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'redovni rad').save()
+                    ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), enter_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'Redovni rad').save()
                 else:
-                    ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), exit_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'redovni rad').save()
+                    ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), exit_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'Redovni rad').save()
         
         # for all the processed ervs (rows), mark them as processed
         for i in range(len(surnames)):

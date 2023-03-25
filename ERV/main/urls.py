@@ -6,5 +6,9 @@ app_name = 'main'
 urlpatterns = [
     path('homepage', views.homepage, name='homepage'),
     path('upload_form', views.upload_form, name='upload_form'),
-    path('upload_csv', views.upload_csv, name='upload_csv')
+    path('upload_csv', views.upload_csv, name='upload_csv'),
+    path("erv_table/", views.ErvTable.as_view(), name="erv_table"),
+    path('swap_erv_table', views.SwapErvTable.as_view(), name='swap_erv_table'),
+    path('erv_table/jobs', views.Jobs.as_view(), name='jobs'),
+    path('edit_erv/<int:pk>/', views.edit_erv, name='edit_erv')
 ]

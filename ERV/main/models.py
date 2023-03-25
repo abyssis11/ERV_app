@@ -2,17 +2,17 @@ from django.db import models
 from datetime import date, datetime 
 
 CATEGORY_CHOICES = {
-    ('administracija', 'administracija'),
-    ('nastavnici', 'nastavnici')
+    ('Administracija', 'Administracija'),
+    ('Nastavnici', 'Nastavnici')
 }
 
 FLAG_CHOICES = {
-    ('redovni rad', 'RR'),
-    ('putni nalog', 'PN'),
-    ('bolovanje', 'BO'),
-    ('slobodan dan', 'SL'),
-    ('godisnji odmor', 'GO'),
-    ('rad od kuce', 'RK')
+    ('Redovni rad', 'Redovni rad'),
+    ('Putni nalog', 'Putni nalog'),
+    ('Bolovanje', 'Bolovanje'),
+    ('Slobodan dan', 'Slobodan dan'),
+    ('Godišnji odmor', 'Godišnji odmor'),
+    ('Rad od kuće', 'Rad od kuće')
 }
 
 
@@ -43,6 +43,7 @@ class ERV(models.Model):
 
     class Meta:
         unique_together = ('worker', 'current_date')
+        ordering = ['-current_date']
 
     def __str__(self):
         return self.worker.name + ' ' + self.worker.surname + ' ' +  str(self.current_date) + ' ' + str(self.enter_time) + ' - ' + str(self.exit_time)
