@@ -64,19 +64,22 @@
                                   toggle(event) {
                                     this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name);
                                     sort_by = this.col_name;}}"
-            @click="toggle()"
-            :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
-            style="cursor: pointer"
-          >
-            {{ column.header }}
-          </th>
-          {% endfor %}
-        </tr>
-        <tr>
-          <!-- filters for Radnik, Razdoblje, Vrijeme ulaska, Vrijeme izlaska and Uredi-->
-          {% for field in filter.form %} {% if field.label == ''%}
-          <td>{{ field|as_crispy_field }}</td>
-          {% endif %} {% endfor %}
+                        @click="toggle()"
+                        :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
+                        style="cursor: pointer; text-align: center;">
+                        {{ column.header }}
+                    </th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <!-- filters for Radnik, Razdoblje, Vrijeme ulaska, Vrijeme izlaska and Uredi-->
+                    {% for field in filter.form %}
+                    {% if field.label == ''%}
+                    <td>
+                        {{ field|as_crispy_field }}
+                    </td>
+                    {% endif %}
+                    {% endfor %}
 
           <datalist id="workers">
             {% for worker in workers %}

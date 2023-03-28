@@ -53,7 +53,7 @@ def add_erv(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'ERV uspješno dodan')
-            return HttpResponse(status=200)
+            return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
     else:
         form = ErvForm()
     return render(request, 'partials/erv_form.html', {

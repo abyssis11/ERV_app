@@ -4,53 +4,73 @@
 {% load crispy_forms_tags %}
 
 {% block main %}
-<div id="table-container" class="table-container" hx-get="{% url 'main:swap_erv_table' %}"
-hx-trigger="Changed from:body" hx-swap="outerHTML">
-
-    <form class="form-inline"
-          hx-get="{% url 'main:erv_table' %}"
-          hx-target=".table-body-container"
-          hx-trigger="input, select, sort-initiated, pagination-initiated"
-          hx-swap="outerHTML"
-          hx-indicator=".progress"
-          x-data="{ sort_by: '', page_by: 1 }">
-
-        <input type="hidden" name="sort" x-ref="sort_input" x-model="sort_by"
-                x-init="$watch('sort_by',
+<div
+  id="table-container"
+  class="table-container"
+  hx-get="{% url 'main:swap_erv_table' %}"
+  hx-trigger="Changed from:body"
+  hx-swap="outerHTML"
+>
+  <form
+    class="form-inline"
+    hx-get="{% url 'main:erv_table' %}"
+    hx-target=".table-body-container"
+    hx-trigger="input, select, sort-initiated, pagination-initiated"
+    hx-swap="outerHTML"
+    hx-indicator=".progress"
+    x-data="{ sort_by: '', page_by: 1 }"
+  >
+    <input
+      type="hidden"
+      name="sort"
+      x-ref="sort_input"
+      x-model="sort_by"
+      x-init="$watch('sort_by',
                         () => $refs.sort_input.dispatchEvent(
-                                new Event('sort-initiated', { bubbles: true })))">
+                                new Event('sort-initiated', { bubbles: true })))"
+    />
 
-        <input type="hidden" name="page" x-ref="paginate_input" x-model="page_by"
-               x-init="$watch('page_by',
+    <input
+      type="hidden"
+      name="page"
+      x-ref="paginate_input"
+      x-model="page_by"
+      x-init="$watch('page_by',
                         () => $refs.paginate_input.dispatchEvent(
-                                new Event('pagination-initiated', { bubbles: true })))" >
+                                new Event('pagination-initiated', { bubbles: true })))"
+    />
 
-        <table {% render_attrs table.attrs class="table multi-col-header" %}>
-            <thead {{ table.attrs.thead.as_html }}>
-                <div>
-                    {% for field in filter.form %}
-                    {% if field.label != ''%}
-                    <div>
-                        {{ field|as_crispy_field }}
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                <tr>
-                    {% for column in table.columns %}
-                    <th {{ column.attrs.th.as_html }}
-                        x-data="{ col_name: '{{ column.order_by_alias }}',
+    <table {% render_attrs table.attrs class="table multi-col-header" %}>
+      <thead {{ table.attrs.thead.as_html }}>
+        <div class="d-flex justify-content-between py-4">
+          <!-- filters for Godina, Mjesec, Kategorija, Posao, Vrsta rada -->
+          {% for field in filter.form %} {% if field.label != ''%}
+          <!-- updating Posao based on Kategorija -->
+          {% if field.label == 'Posao' %}
+          <div id="jobs">{{ field|as_crispy_field }}</div>
+          {% else %}
+          <div>{{ field|as_crispy_field }}</div>
+          {% endif %} {% endif %} {% endfor %}
+        </div>
+        <tr>
+          {% for column in table.columns %}
+          <th
+            {{
+            column.attrs.th.as_html
+            }}
+            x-data="{ col_name: '{{ column.order_by_alias }}',
                                   toggle(event) {
                                     this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name);
                                     sort_by = this.col_name;}}"
                         @click="toggle()"
                         :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
-                        style="cursor: pointer;">
+                        style="cursor: pointer; text-align: center;">
                         {{ column.header }}
                     </th>
                     {% endfor %}
                 </tr>
                 <tr>
+                    <!-- filters for Radnik, Razdoblje, Vrijeme ulaska, Vrijeme izlaska and Uredi-->
                     {% for field in filter.form %}
                     {% if field.label == ''%}
                     <td>
@@ -59,23 +79,21 @@ hx-trigger="Changed from:body" hx-swap="outerHTML">
                     {% endif %}
                     {% endfor %}
 
-                    <datalist id="workers">
-                        {% for worker in workers %}
-                            <option value="{{ worker }}"></option>
-                        {% endfor %}
-                    </datalist>
-                </tr>
-            </thead>
-        </table>
+          <datalist id="workers">
+            {% for worker in workers %}
+            <option value="{{ worker }}"></option>
+            {% endfor %}
+          </datalist>
+        </tr>
+      </thead>
+    </table>
 
-        <div class="progress">
-            <div class="indeterminate"></div>
-        </div >
+    <div class="progress">
+      <div class="indeterminate"></div>
+    </div>
 
-        <div>
-        {% render_table table %}
-        </div>
-    </form>
-
+    <!-- table_partial -->
+    <div>{% render_table table %}</div>
+  </form>
 </div>
 {% endblock %}
