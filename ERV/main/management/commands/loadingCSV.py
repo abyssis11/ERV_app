@@ -80,14 +80,14 @@ with open('/app/ERV/main/management/commands/csv_file.csv') as csv_file:
                     erv = ERV.objects.get(current_date = datetime.strptime(dates[i], FORMAT_DATE), worker = Worker.objects.get(name__iexact = names[i], surname__iexact = surnames[i]))
                     if erv.exit_time and not erv.enter_time and timeDifference(dates[i], erv.exit_time, datetime.strptime(times[i], FORMAT_TIME)) > datetime.strptime('00:02:00', FORMAT_TIME):
                             erv.enter_time=erv.exit_time
-                    erv.exit_time = datetime.strptime(times[i], FORMAT_TIME)
+                    erv.exit_time = datetime.strptime(times[i], FORMAT_TIME).time()
                     erv.save()
                 else:
                     # if the time is lower then 12pm then that is enter time otherwise that is exit time
                     if datetime.strptime(times[i], FORMAT_TIME) <= datetime.strptime('12:00:00', FORMAT_TIME):
-                        ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), enter_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'Redovni rad').save()
+                        ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), enter_time = datetime.strptime(times[i], FORMAT_TIME).time(), flag = 'Redovni rad').save()
                     else:
-                        ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), exit_time = datetime.strptime(times[i], FORMAT_TIME), flag = 'Redovni rad').save()
+                        ERV(worker = worker, current_date = datetime.strptime(dates[i], FORMAT_DATE), exit_time = datetime.strptime(times[i], FORMAT_TIME).time(), flag = 'Redovni rad').save()
             
             # for all the processed ervs (rows), mark them as processed
             for i in range(len(surnames)):

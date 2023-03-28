@@ -45,7 +45,7 @@ hx-trigger="Changed from:body" hx-swap="outerHTML">
                                     sort_by = this.col_name;}}"
                         @click="toggle()"
                         :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''"
-                        style="cursor: pointer;">
+                        style="cursor: pointer; text-align: center;">
                         {{ column.header }}
                     </th>
                     {% endfor %}

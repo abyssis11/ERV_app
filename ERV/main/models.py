@@ -1,5 +1,7 @@
 from django.db import models
 from datetime import date, datetime 
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 CATEGORY_CHOICES = {
     ('Administracija', 'Administracija'),
@@ -38,6 +40,7 @@ class ERV(models.Model):
     current_date = models.DateField('Razdoblje', default=date.today)
     enter_time = models.TimeField('Vrijeme ulaska', null=True, blank=True)
     exit_time = models.TimeField('Vrijeme izlaska', null=True, blank=True)
+    delta_time = models.TimeField('Vrijeme rada', null=True, blank=True)
     flag = models.CharField('Vrsta rada', max_length=14, choices=FLAG_CHOICES, blank=True, null=True)
     processed = models.BooleanField('Potvrdi', default=False)
 
@@ -45,9 +48,28 @@ class ERV(models.Model):
         unique_together = ('worker', 'current_date')
         ordering = ['-current_date']
 
+    def save(self, *args, **kwargs):
+        FORMAT_TIME = '%H:%M:%S'
+        if self.enter_time != None and self.exit_time != None:
+            exit = datetime.combine(self.current_date, self.exit_time)
+            enter = datetime.combine(self.current_date, self.enter_time)
+            delta = str(exit - enter)
+            self.delta_time = datetime.strptime(delta, FORMAT_TIME)
+        super(ERV, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.worker.name + ' ' + self.worker.surname + ' ' +  str(self.current_date) + ' ' + str(self.enter_time) + ' - ' + str(self.exit_time)
 
 # load fixture sa ./manage.py loaddata data.json
 class Marker(models.Model):
     value = models.IntegerField(default=0)
+
+"""     def save(self, *args, **kwargs):
+        created = self.pk is None
+        super(ERV, self).save(*args, **kwargs)
+        print('save')
+        if created and self.enter_time != None and self.exit_time != None:
+            print('deltaTime')
+            print(self.enter_time)
+            print(self.exit_time)
+            self.delta_time = self.exit_time - self.enter_time   """
