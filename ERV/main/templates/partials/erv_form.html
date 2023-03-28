@@ -1,61 +1,128 @@
-{% load widget_tweaks %}
-{% with WIDGET_ERROR_CLASS='is-invalid' %}
-<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' class="modal-content">
+{% load widget_tweaks %} {% with WIDGET_ERROR_CLASS='is-invalid' %}
+<form
+  hx-post="{{ request.path }}"
+  hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+  class="modal-content"
+>
   <div class="modal-header">
     <h3 class="modal-title">Dodja Evidenciju radnog vremena</h3>
   </div>
 
   <div class="modal-body">
-
     <div class="mb-3">
-        <label for="{{ form.worker.id_for_label }}" class="form-label">Radnik</label>
-        <div  class="input-group">
-          {% render_field form.worker class="form-control" %}
-          <button type="button" class="btn btn-success" hx-get="{% url 'main:add_worker' %}">+</button>
-        </div>
-        <div class="invalid-feedback input-medium">{{ form.worker.errors|first }}</div>
+      <label for="{{ form.worker.id_for_label }}" class="form-label"
+        >Radnik</label
+      >
+      <div class="input-group">
+        {% render_field form.worker class="form-control" %}
+        <button
+          type="button"
+          class="btn btn-success"
+          hx-get="{% url 'main:add_worker' %}"
+        >
+          +
+        </button>
       </div>
-      
-    <div class="mb-3">
-        <label for="{{ form.current_date.id_for_label }}" class="form-label">Datum</label>
-          {% render_field form.current_date class="form-control" %}
-          <div class="invalid-feedback input-small">{{ form.current_date.errors|first }}</div>
+      <div class="invalid-feedback input-medium">
+        {{ form.worker.errors|first }}
+      </div>
     </div>
 
     <div class="mb-3">
-        <label for="{{ form.enter_time.id_for_label }}" class="form-label">Vrijeme ulaska</label >
-        {% render_field form.enter_time class="form-control" %}
-        <div class="invalid-feedback">{{ form.enter_time.errors|first }}</div>
+      <label for="{{ form.current_date.id_for_label }}" class="form-label"
+        >Datum</label
+      >
+      {% render_field form.current_date class="form-control" %}
+      <div class="invalid-feedback input-small">
+        {{ form.current_date.errors|first }}
       </div>
-  
-    <div class="mb-3">
-        <label for="{{ form.exit_time.id_for_label }}" class="form-label">Vrijeme izlaska</label >
-        {% render_field form.exit_time class="form-control" %}
-        <div class="invalid-feedback">{{ form.exit_time.errors|first }}</div>
     </div>
-  
+
     <div class="mb-3">
-        <label for="{{ form.flag.id_for_label }}" class="form-label">Vrsta rada</label >
+      <label for="{{ form.enter_time.id_for_label }}" class="form-label"
+        >Vrijeme ulaska</label
+      >
+      {% render_field form.enter_time class="form-control" %}
+      <div class="invalid-feedback">{{ form.enter_time.errors|first }}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.exit_time.id_for_label }}" class="form-label"
+        >Vrijeme izlaska</label
+      >
+      {% render_field form.exit_time class="form-control" %}
+      <div class="invalid-feedback">{{ form.exit_time.errors|first }}</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="{{ form.flag.id_for_label }}" class="form-label"
+        >Vrsta rada</label
+      >
       {% render_field form.flag class="form-control" %}
       <div class="invalid-feedback">{{ form.flag.errors|first }}</div>
     </div>
 
     <div class="mb-3">
-        <label for="{{ form.processed.id_for_label }}" class="form-label">Potvrdi</label >
-        {% render_field form.processed class="form-check-input" type="checkbox"%}
-        <div class="invalid-feedback">{{ form.processed.errors|first }}</div>
+      <label for="{{ form.processed.id_for_label }}" class="form-label"
+        >Potvrdi</label
+      >
+      {% render_field form.processed class="form-check-input" type="checkbox"%}
+      <div class="invalid-feedback">{{ form.processed.errors|first }}</div>
     </div>
-  
   </div>
 
   <div class="modal-footer">
     {% if erv %}
-      <button type="button" class="btn btn-danger" hx-post="{% url 'main:remove_erv' erv.pk %}">Remove</button>
-      <span class="flex-grow-1"></span>
+    <button
+      type="button"
+      class="btn btn-danger"
+      hx-post="{% url 'main:remove_erv' erv.pk %}"
+    >
+      Remove
+    </button>
+    <span class="flex-grow-1"></span>
     {% endif %}
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Odustani</button>
-    <button type="submit" class="btn btn-primary">Spremi</button>
-
+    <button
+      style="
+        border-radius: 6px;
+        background-color: #6cb5b5;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        margin: 4px 2px;
+        opacity: 0.5;
+        transition: 0.3s;
+        display: inline-block;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+      "
+      type="button"
+      class="btn"
+      data-bs-dismiss="modal"
+    >
+      Odustani
+    </button>
+    <button
+      style="
+        background-color: #8cd8a6;
+        border-radius: 6px;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        margin: 4px 2px;
+        opacity: 1;
+        transition: 0.3s;
+        display: inline-block;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+      "
+      type="submit"
+      class="btn"
+    >
+      Spremi
+    </button>
   </div>
 </form>
 {% endwith %}

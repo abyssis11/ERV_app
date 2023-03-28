@@ -1,0 +1,15 @@
+{% load static %}
+<button
+  hx-get="{% url 'main:edit_erv' record.id %}"
+  hx-target="#dialog"
+  hx-trigger="click"
+  hx-swap="innerHTML"
+  class="border-0 bg-transparent"
+>
+  <img
+    src="{% static 'img/edit-icon.png' %}"
+    alt="vector"
+    class="vector"
+    style="width: 25% !important; height: 25% !important"
+  />
+</button>

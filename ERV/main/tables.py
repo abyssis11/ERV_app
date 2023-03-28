@@ -9,7 +9,7 @@ class ProductHTMxMultiColumnTable(tables.Table):
     job = tables.Column(accessor='worker.job')
     month = tables.Column(accessor='current_date__month')
     year = tables.Column(accessor='current_date__year')
-    update_button = tables.TemplateColumn("<button hx-get='{% url 'main:edit_erv' record.id %}' hx-target='#dialog' hx-trigger='click' hx-swap='innerHTML' class='btn btn-primary btn-floating'>Uredi</button>", verbose_name='Uredi')
+    update_button = tables.TemplateColumn(template_name='partials/edit_button.html', verbose_name='Uredi')
 
     # formating
     current_date = tables.DateColumn(format='j. E Y.')

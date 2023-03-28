@@ -7,9 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Evidencija radnog vremena demo</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap5/css/bootstrap.min.css' %}"/>
-  
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'bootstrap5/css/bootstrap.min.css' %}"
+    />
+
     <title>Evidencija radnog vremena</title>
   </head>
 
@@ -78,7 +87,7 @@
           </div>
         </div>-->
 
-       <!--<div class="filters">
+    <!--<div class="filters">
           <div class="overlap-group1-1">
             <div class="decoration-2 decoration-4"></div>
             <div class="overlap-group-3">
@@ -128,9 +137,9 @@
           </div>
 
         </div>-->
-        <!--<div class="free-space"></div>-->
+    <!--<div class="free-space"></div>-->
 
-         <!--<div class="overlap-group3-1">
+    <!--<div class="overlap-group3-1">
             <button
             class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
             hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
@@ -142,87 +151,95 @@
 
     <header>
       <!-- Navbar -->
-      <nav class="navbar navbar-light navbar-expand-md bg-faded justify-content-center py-5">
+      <nav
+        class="navbar navbar-light navbar-expand-md bg-faded justify-content-center py-5"
+      >
         <div class="container">
+          <!--logo-->
+          <a href="/" class="navbar-brand d-flex me-auto">
+            <img
+              src="{% static 'img/uniri-logo-header.svg' %}"
+              height="35"
+              alt="uniri logo"
+            />
+          </a>
 
-            <!--logo-->
-            <a href="/" class="navbar-brand d-flex me-auto">
-              <img
-                src="{% static 'img/uniri-logo-header.svg' %}"
-                height="35"
-                alt="uniri logo"
-              />
-            </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsingNavbar3"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar3">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+          <!--items-->
+          <div class="navbar-collapse collapse" id="collapsingNavbar3">
+            <!--center items-->
+            <ul class="nav navbar-nav justify-content-center">
+              <li class="nav-item active px-3">
+                <a class="nav-link" href="/main/erv_table">ERV</a>
+              </li>
+              <li class="nav-item px-3">
+                <a class="nav-link" href="#">Sastavnice</a>
+              </li>
+              <li class="nav-item px-3">
+                <a class="nav-link" href="#">Radnici</a>
+              </li>
+              <li class="nav-item px-3">
+                <a class="nav-link" href="#">Poslovi</a>
+              </li>
+              <li class="nav-item px-3">
+                <a class="nav-link" href="#">Kontakt</a>
+              </li>
+            </ul>
 
-            <!--items-->
-            <div class="navbar-collapse collapse" id="collapsingNavbar3">
-
-              <!--center items-->
-              <ul class="nav navbar-nav justify-content-center">
-                <li class="nav-item active px-3">
-                    <a class="nav-link" href="#">ERV</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Sastavnice</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Radnici</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Poslovi</a>
-                </li>
-                <li class="nav-item px-3">
-                    <a class="nav-link" href="#">Kontakt</a>
-                </li>
-              </ul>
-
-              <!--left items-->
-              <ul class="navbar-nav ms-auto justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-secondary" href="#">Odjava</a>
-                </li>
-              </ul>
-
+            <!--left items-->
+            <ul class="navbar-nav ms-auto justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link btn" href="#"><ins>Odjava</ins></a>
+              </li>
+            </ul>
           </div>
-
         </div>
       </nav>
 
       <!--hero pozadina-->
       <div class="container-fluid p-5 text-start bg-image hero-bg">
         <div class="mask py-5">
-          <div class="d-flex justify-content-start align-items-center h-100">
+          <div
+            class="d-flex flex-column justify-content-start align-items-start h-100"
+          >
             <div class="text-white">
-              <h1 class="evidencija-radnog-vremena">Evidencija radnog vremena</h1>
+              <h1 class="evidencija-radnog-vremena">
+                Evidencija radnog vremena
+              </h1>
+            </div>
+            <div class="container">
+              <button
+                class="add-button navbar-link"
+                hx-get="{% url 'main:add_erv' %}"
+                hx-target="#dialog"
+                hx-trigger="click"
+              >
+                Dodaj ERV
+              </button>
+              <button
+                class="upload-button navbar-link sanserifcollection-regular-normal-black-12px"
+                hx-get="{% url 'main:upload_form' %}"
+                hx-target="#dialog"
+                hx-trigger="click"
+              >
+                Učitaj CSV
+              </button>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-
-    <div class="container">
-      <button
-      class="add-button navbar-link sanserifcollection-regular-normal-black-12px"
-      hx-get="{% url 'main:add_erv' %}" hx-target="#dialog" hx-trigger="click">
-        Dodaj ERV
-      </button>
-      <button
-        class="upload-button navbar-link sanserifcollection-regular-normal-black-12px"
-        hx-get="{% url 'main:upload_form' %}" hx-target="#dialog" hx-trigger="click">
-          Učitaj CSV
-      </button>
-    </div>
-
     <!-- table_filter and table-->
-    <div class="container">
-      {% block main %}
-      {% endblock %}
-    </div>
+    <div class="container p-4">{% block main %} {% endblock %}</div>
 
     <!--upload and edit form-->
     <div id="modal" class="modal fade">
@@ -230,15 +247,28 @@
     </div>
 
     <!-- toasts -->
-    <div data-toast-container class="toast-container position-fixed top-0 start-50 translate-middle-x p-3">
-      <div data-toast-template class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div
+      data-toast-container
+      class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+    >
+      <div
+        data-toast-template
+        class="toast align-items-center border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
         <div class="d-flex">
           <div data-toast-body class="toast-body fs-6 fw-bold"></div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
         </div>
       </div>
     </div>
-    
 
     <script src="{% static 'htmx/htmx.min.js' %}"></script>
     <script defer src="{% static 'alpinejs/alpine.min.js' %}"></script>

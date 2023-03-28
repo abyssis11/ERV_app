@@ -1,19 +1,59 @@
-<form hx-encoding="multipart/form-data" 
-      hx-post="{% url 'main:upload_csv' %}" class="modal-content">
-
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<form
+  hx-encoding="multipart/form-data"
+  hx-post="{% url 'main:upload_csv' %}"
+  class="modal-content"
+>
   {% csrf_token %}
   <div class="modal-header">
     <h3 class="modal-title">Učitaj CSV</h3>
   </div>
 
   <div class="modal-body">
-    <input type="file" name="csv"/>
+    <input type="file" name="csv" />
 
     <span>Dozvoljeni formati: CSV</span>
   </div>
   <div class="modal-footer">
-    <button type="button" data-bs-dismiss="modal">Odustani</button>
-    <button type="submit">Spremi</button>
+    <button
+      style="
+        border-radius: 6px;
+        background-color: #6cb5b5;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        margin: 4px 2px;
+        opacity: 0.5;
+        transition: 0.3s;
+        display: inline-block;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+      "
+      type="button"
+      data-bs-dismiss="modal"
+    >
+      Odustani
+    </button>
+    <button
+      style="
+        background-color: #8cd8a6;
+        border-radius: 6px;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        margin: 4px 2px;
+        opacity: 1;
+        transition: 0.3s;
+        display: inline-block;
+        cursor: pointer;
+        color: black;
+        font-weight: bold;
+      "
+      type="submit"
+    >
+      Spremi
+    </button>
   </div>
 </form>
-
