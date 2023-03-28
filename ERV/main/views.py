@@ -15,17 +15,22 @@ from .forms import  ErvForm, WorkerForm
 from django.shortcuts import get_object_or_404
 import json
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class WorkerList(ListView):
     model = ERV
 
+@login_required
 def homepage(request):
     return render(request, 'base_generic.html')
 
+@login_required
 def upload_form(request):
     return render(request, 'partials/upload_form.html')
 
+@login_required
 def upload_csv(request):
     if request.method == 'POST':
         csv = request.FILES.get('csv')
@@ -46,7 +51,8 @@ def upload_csv(request):
         else:
             messages.error(request, 'Potrebno je odabrati CSV datoteku')
             return HttpResponse(status=400)
-        
+
+@login_required    
 def add_erv(request):
     if request.method == "POST":
         form = ErvForm(request.POST)
@@ -60,6 +66,7 @@ def add_erv(request):
         'form': form,
     })
 
+@login_required
 def add_worker(request):
     if request.method == "POST":
         form = WorkerForm(request.POST)
@@ -89,8 +96,7 @@ class CustomPaginator(Paginator):
             else:
                 raise
 
-
-class ErvTable(SingleTableMixin, FilterView):
+class ErvTable(LoginRequiredMixin, SingleTableMixin, FilterView):
     table_class = ProductHTMxMultiColumnTable
     queryset = ERV.objects.all()
     filterset_class = ErvFilter
@@ -108,8 +114,9 @@ class ErvTable(SingleTableMixin, FilterView):
         else:
             template_name = "tables/table_filter.html"
         return template_name
-    
-class SwapErvTable(SingleTableMixin, FilterView):
+
+
+class SwapErvTable(LoginRequiredMixin, SingleTableMixin, FilterView):
     table_class = ProductHTMxMultiColumnTable
     queryset = ERV.objects.all()
     filterset_class = ErvFilter
@@ -121,11 +128,13 @@ class SwapErvTable(SingleTableMixin, FilterView):
         context = super(SwapErvTable, self).get_context_data(*args,**kwargs)
         context['workers'] = Worker.objects.all()
         return context
-    
-class Jobs(FilterView):
+
+
+class Jobs(LoginRequiredMixin, FilterView):
     filterset_class = ErvFilter
     template_name = "partials/jobs_form.html"
 
+@login_required
 def edit_erv(request, pk):
     erv = get_object_or_404(ERV, pk=pk)
     if request.method == "POST":
@@ -141,6 +150,7 @@ def edit_erv(request, pk):
         'erv': erv,
     })
 
+@login_required
 @ require_POST
 def remove_erv(request, pk):
     erv = get_object_or_404(ERV, pk=pk)

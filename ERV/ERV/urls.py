@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    #path('', include('main.urls')),
     path('admin/', admin.site.urls),
-    #path('main/', include('main.urls')),
+
+    # aai
+    path('saml2/', include('djangosaml2.urls')),
+
     path("main/", include(("main.urls", "main"), namespace="main")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,6 +3,13 @@ db_settings.txt
 virtual_env
 data/db
 ERV/main/migrations
+ERV/ERV/credentials.txt
+ERV/aai_integration/certificates/
+ERV/aai_integration/models/__pycache__
+ERV/aai_integration/migrations/__pycache__
+ERV/aai_integration/attribute_map/__pycache__
+ERV/aai_integration/__pycache__
+ERV/logs/
 ERV/main/__pycache__
 ERV/ERV/__pycache__
 ERV/utils/__pycache__
