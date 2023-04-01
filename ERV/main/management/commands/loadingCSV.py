@@ -30,7 +30,17 @@ def timeDifference(date, t1, t2) -> datetime:
     return datetime.strptime(delta, FORMAT_TIME)
 
 with open('/app/ERV/main/management/commands/csv_file.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
+    # getting delimiter
+    testLine = csv_file.readline()
+    dialect = csv.Sniffer().sniff(testLine)
+    #print(dialect.delimiter)
+
+    # MAYBE ADD ACCEPTED DELIMITERS!
+
+    # return to beginning 
+    csv_file.seek(0)
+    csv_reader = csv.reader(csv_file, dialect)
+    #csv_reader = csv.reader(csv_file, delimiter=',')
 
     surnames = []
     names = []

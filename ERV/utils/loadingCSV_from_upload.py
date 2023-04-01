@@ -1,4 +1,4 @@
-from csv import reader
+from csv import reader, Sniffer
 from main.models import *
 from datetime import datetime
 import os
@@ -30,7 +30,18 @@ def uploading_csv(csv_url):
         return datetime.strptime(delta, FORMAT_TIME)
 
     with open(csv_url) as csv_file:
-        csv_reader = reader(csv_file, delimiter=',')
+        # getting delimiter
+        testLine = csv_file.readline()
+        dialect = Sniffer().sniff(testLine)
+        #print(dialect.delimiter)
+
+        # MAYBE ADD ACCEPTED DELIMITERS!
+
+        # return to beginning 
+        csv_file.seek(0)
+
+        #csv_reader = reader(csv_file, delimiter=',')
+        csv_reader = reader(csv_file, dialect)
 
         surnames = []
         names = []
