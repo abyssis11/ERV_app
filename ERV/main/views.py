@@ -1,19 +1,18 @@
 from django.shortcuts import render, redirect, redirect
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 from main.models import *
 from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
 from django.contrib import messages
-from main.tables import ProductHTMxMultiColumnTable #ProductHTMxTable
+from main.tables import ProductHTMxMultiColumnTable
 from main.filters import ErvFilter
 from django.core.paginator import Paginator, EmptyPage
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 from .forms import  ErvForm, WorkerForm
 from django.shortcuts import get_object_or_404
-import json
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin

@@ -1,7 +1,5 @@
 from django.db import models
 from datetime import date, datetime 
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 
 CATEGORY_CHOICES = {
     ('Administracija', 'Administracija'),

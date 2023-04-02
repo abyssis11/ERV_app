@@ -77,8 +77,9 @@
       type="button"
       class="btn btn-danger"
       hx-post="{% url 'main:remove_erv' erv.pk %}"
+      hx-confirm="Odabrani ERV biti će uklonjen. Želite li nastaviti?"
     >
-      Remove
+      Ukloni
     </button>
     <span class="flex-grow-1"></span>
     {% endif %}
