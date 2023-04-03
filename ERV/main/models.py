@@ -31,6 +31,10 @@ class Worker(models.Model):
 
     def __str__(self):
         return self.name + ' ' + self.surname
+    
+    class Meta:
+        unique_together = ('name', 'surname')
+        ordering = ['surname']
 
 
 class ERV(models.Model):
@@ -59,15 +63,7 @@ class ERV(models.Model):
         return self.worker.name + ' ' + self.worker.surname + ' ' +  str(self.current_date) + ' ' + str(self.enter_time) + ' - ' + str(self.exit_time)
 
 # load fixture sa ./manage.py loaddata data.json
+# DEPRECATED
 class Marker(models.Model):
     value = models.IntegerField(default=0)
 
-"""     def save(self, *args, **kwargs):
-        created = self.pk is None
-        super(ERV, self).save(*args, **kwargs)
-        print('save')
-        if created and self.enter_time != None and self.exit_time != None:
-            print('deltaTime')
-            print(self.enter_time)
-            print(self.exit_time)
-            self.delta_time = self.exit_time - self.enter_time   """
