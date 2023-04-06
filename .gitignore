@@ -4,6 +4,5 @@ virtual_env
 data/db
 ERV/main/migrations
 ERV/ERV/credentials.txt
-ERV/aai_integration/certificates/
 *.log
 *.pyc
