@@ -1,5 +1,5 @@
 version: "3.7"
-services: 
+services:
     db:
         container_name: postgres_database
         image: postgres:14.1
@@ -17,16 +17,16 @@ services:
         container_name: ERV_app
         build: .
         command: >
-            bash -c "python ERV/manage.py runserver 0.0.0.0:8000"
-        volumes: 
+            bash -c "python ERV/manage.py makemigrations && python ERV/manage.py migrate && python ERV/manage.py runserver 0.0.0.0:8000"
+        volumes:
             - .:/app
-        ports: 
+        ports:
             - "8000:8000"
         environment:
             - POSTGRES_NAME=${DB_NAME}
             - POSTGRES_USER=${DB_USER}
             - POSTGRES_PASSWORD=${DB_PASSWORD}
             - DJANGO_KEY=${DJANGO_KEY}
-        depends_on: 
+        depends_on:
             - db
         restart: on-failure

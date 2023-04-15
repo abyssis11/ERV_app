@@ -11,7 +11,7 @@ RUN apt-get update \
     && pip3 install psycopg2 \
     && pip3 install django-extensions \
     && pip3 install django-widget-tweaks \
-    && apt-get -y install xmlsec1
+    && apt-get -y install xmlsec1 
 
 RUN pip3 install -r requirements.txt
 
