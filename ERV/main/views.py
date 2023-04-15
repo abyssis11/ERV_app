@@ -11,7 +11,7 @@ from main.filters import ErvFilter
 from django.core.paginator import Paginator, EmptyPage
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
-from .forms import  ErvForm, WorkerForm
+from .forms import  AddErvForm, WorkerForm, EditErvForm
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -54,13 +54,13 @@ def upload_csv(request):
 @login_required    
 def add_erv(request):
     if request.method == "POST":
-        form = ErvForm(request.POST)
+        form = AddErvForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'ERV uspješno dodan')
             return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
     else:
-        form = ErvForm()
+        form = AddErvForm()
     return render(request, 'partials/erv_form.html', {
         'form': form,
     })
@@ -137,13 +137,13 @@ class Jobs(LoginRequiredMixin, FilterView):
 def edit_erv(request, pk):
     erv = get_object_or_404(ERV, pk=pk)
     if request.method == "POST":
-        form = ErvForm(request.POST, instance=erv)
+        form = EditErvForm(request.POST, instance=erv)
         if form.is_valid():
             form.save()
             messages.success(request, 'ERV ažuriran')
             return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
     else:
-        form = ErvForm(instance=erv)
+        form = EditErvForm(instance=erv)
     return render(request, 'partials/erv_form.html', {
         'form': form,
         'erv': erv,
