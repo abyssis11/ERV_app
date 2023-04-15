@@ -27,7 +27,7 @@ class Worker(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     active = models.BooleanField(default=True)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE) 
+    job = models.ForeignKey(Job, on_delete=models.PROTECT) 
 
     def __str__(self):
         return self.name + ' ' + self.surname
@@ -38,7 +38,7 @@ class Worker(models.Model):
 
 
 class ERV(models.Model):
-    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, verbose_name='Radnik')
+    worker = models.ForeignKey(Worker, on_delete=models.PROTECT, verbose_name='Radnik')
     current_date = models.DateField('Razdoblje', default=date.today)
     enter_time = models.TimeField('Vrijeme ulaska', null=True, blank=True)
     exit_time = models.TimeField('Vrijeme izlaska', null=True, blank=True)
