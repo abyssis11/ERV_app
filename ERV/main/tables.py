@@ -8,7 +8,8 @@ class ProductHTMxMultiColumnTable(tables.Table):
     job = tables.Column(accessor='worker.job')
     month = tables.Column(accessor='current_date__month')
     year = tables.Column(accessor='current_date__year')
-    update_button = tables.TemplateColumn(template_name='partials/edit_button.html', verbose_name='Uredi', orderable=False)
+    update_button = tables.TemplateColumn(template_name='partials/edit_button.html', verbose_name='Uredi', orderable=False, exclude_from_export=True)
+    graph_button = tables.TemplateColumn(template_name='partials/graph_button.html', verbose_name='Izvještaj', orderable=False, exclude_from_export=True)
 
     # formating
     current_date = tables.DateColumn(format='j. E Y.')
@@ -19,5 +20,5 @@ class ProductHTMxMultiColumnTable(tables.Table):
         model = ERV
         #show_header = False
         template_name = "tables/table.html"
-        fields = ("worker", "current_date", "enter_time", "exit_time", "delta_time", "update_button")
+        fields = ("worker", "current_date", "enter_time", "exit_time", "delta_time", "update_button", "graph_button")
         exclude = ('id','processed', 'flag', 'job_category', 'job', 'month', 'year')

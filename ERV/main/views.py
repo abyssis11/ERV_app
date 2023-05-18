@@ -12,10 +12,11 @@ from django.core.paginator import Paginator, EmptyPage
 from django_tables2 import SingleTableMixin
 from django_filters.views import FilterView
 from .forms import  AddErvForm, WorkerForm, EditErvForm
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_tables2.export.views import ExportMixin
 
 # Create your views here.
 class WorkerList(ListView):
@@ -95,7 +96,30 @@ class CustomPaginator(Paginator):
             else:
                 raise
 
-class ErvTable(LoginRequiredMixin, SingleTableMixin, FilterView):
+""" class ErvTable(LoginRequiredMixin, SingleTableMixin, FilterView, ExportMixin):
+    table_class = ProductHTMxMultiColumnTable
+    #queryset = ERV.objects.all()
+    model = ERV
+    filterset_class = ErvFilter
+    paginate_by = 10
+    paginator_class = CustomPaginator
+    export_formats = ['csv', 'xls']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ErvTable, self).get_context_data(*args,**kwargs)
+        context['workers'] = Worker.objects.all()
+        return context
+
+    def get_template_names(self):
+        if self.request.htmx:
+            template_name = "tables/table_partial.html"
+        else:
+            template_name = "tables/table_filter.html"
+        return template_name
+ """
+
+
+class ErvTable(ExportMixin, SingleTableMixin, FilterView, LoginRequiredMixin):
     table_class = ProductHTMxMultiColumnTable
     queryset = ERV.objects.all()
     filterset_class = ErvFilter
@@ -114,8 +138,7 @@ class ErvTable(LoginRequiredMixin, SingleTableMixin, FilterView):
             template_name = "tables/table_filter.html"
         return template_name
 
-
-class SwapErvTable(LoginRequiredMixin, SingleTableMixin, FilterView):
+class SwapErvTable(ExportMixin, SingleTableMixin, FilterView, LoginRequiredMixin):
     table_class = ProductHTMxMultiColumnTable
     queryset = ERV.objects.all()
     filterset_class = ErvFilter
@@ -156,3 +179,11 @@ def remove_erv(request, pk):
     erv.delete()
     messages.warning(request, 'ERV uklonjen')
     return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
+
+@login_required
+def bar_graph(request, pk):
+    selectedErv = get_object_or_404(ERV, pk=pk)
+    selectedWorker = selectedErv.worker
+    workerErvs = get_list_or_404(ERV, worker=selectedWorker)
+    print(workerErvs)
+    return HttpResponse(status=200)

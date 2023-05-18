@@ -417,9 +417,11 @@ button {
   width: 15%;
 }
 
-.table-container td:nth-child(6) {
-  width: 5%;
+.table-container td:nth-child(6), 
+.table-container td:nth-child(7) {
+  width: 10%;
 }
+
 
 /* Table sorting icon */
 th.asc:after {
