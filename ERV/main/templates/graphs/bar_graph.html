@@ -1,0 +1,81 @@
+<div class="modal-content" >
+    <div class="modal-header">
+        <h3 class="modal-title">Izvještaj za {{ worker }}</h3>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              {{current_year}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for year in years %}
+              {% if year == current_year %}
+                <button 
+                    class="dropdown-item active" 
+                    hx-get="{% url 'main:bar_graph' pk=pk year=year %}"
+                    hx-target="#graph"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                >{{ year }}</button>
+                {% else %}
+                <button 
+                    class="dropdown-item" 
+                    hx-get="{% url 'main:bar_graph' pk=pk year=year %}"
+                    hx-target="#graph"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                >{{ year }}</button>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+    </div>
+    <div class="modal-body">
+        <div class="m-3">
+            <canvas id="chart" width="500" height="500"></canvas>
+            <script>
+                var ctx = document.getElementById("chart").getContext("2d");
+                var graph = JSON.parse('{{ graph|escapejs }}');
+    /*             const plugin = {
+                    id: 'customCanvasBackgroundColor',
+                    beforeDraw: (chart, args, options) => {
+                        const {ctx} = chart;
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'destination-over';
+                        ctx.fillStyle = options.color || '#99ffff';
+                        ctx.fillRect(0, 0, chart.width, chart.height);
+                        ctx.restore();
+                    }
+                    }; */
+                var chart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: graph.labels,
+                    datasets: [
+                        {
+                        label: "Dolasci",
+                        backgroundColor: "rgba(163, 178, 205, 1)",
+                        borderColor: "rgba(163, 178, 205, 1)",
+                        data: graph.data
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 0,
+                            ticks:{
+                                stepSize: 1
+                            }
+                        }
+                    }
+    /*                 plugins: {
+                        costumCanvasBackgroundColor: {
+                            color: 'rgba(163, 242, 130, 0.8)'
+                        }
+                    } */
+                },
+                //plugins: [plugin]
+                });
+            </script>
+        </div>
+    </div>
+</div>

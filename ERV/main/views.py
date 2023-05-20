@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
+from utils.bar_graph_data import graph_data_dict
 from django.contrib import messages
 from main.tables import ProductHTMxMultiColumnTable
 from main.filters import ErvFilter
@@ -17,6 +18,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_tables2.export.views import ExportMixin
+import json 
 
 # Create your views here.
 class WorkerList(ListView):
@@ -181,9 +183,16 @@ def remove_erv(request, pk):
     return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
 
 @login_required
-def bar_graph(request, pk):
+def bar_graph(request, pk, year):
     selectedErv = get_object_or_404(ERV, pk=pk)
     selectedWorker = selectedErv.worker
     workerErvs = get_list_or_404(ERV, worker=selectedWorker)
-    print(workerErvs)
-    return HttpResponse(status=200)
+    data=graph_data_dict(workerErvs, year)
+    context = {
+        'graph':json.dumps(data),
+        'years':data['years'],
+        'pk':pk,
+        'current_year':year,
+        'worker': workerErvs[0].worker.name + ' ' + workerErvs[0].worker.surname
+               }
+    return render(request, 'graphs/bar_graph.html', context)
