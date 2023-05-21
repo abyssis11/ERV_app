@@ -14,5 +14,6 @@ urlpatterns = [
     path('erv_table/jobs', views.Jobs.as_view(), name='jobs'),
     path('edit_erv/<int:pk>/', views.edit_erv, name='edit_erv'),
     path('remove_erv/<int:pk>/', views.remove_erv, name='remove_erv'),
-    path('bar_graph/<int:pk>/<str:year>/', views.bar_graph, name='bar_graph')
+    path('bar_graph/<int:pk>/<str:year>/<str:month>/', views.bar_graph, name='bar_graph'),
+    path('pie/<int:pk>/<str:year>/<str:month>/', views.pie, name='pie')
 ]

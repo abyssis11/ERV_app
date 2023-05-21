@@ -1,7 +1,7 @@
 {% load static %}
 {% now "Y" as current_year %}
 <button
-  hx-get="{% url 'main:bar_graph' pk=record.id year=current_year %}"
+  hx-get="{% url 'main:bar_graph' pk=record.id year=current_year month='Ukupno' %}"
   hx-target="#graph"
   hx-trigger="click"
   hx-swap="innerHTML"

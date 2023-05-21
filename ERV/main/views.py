@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from main.models import *
 from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
-from utils.bar_graph_data import graph_data_dict
+from utils.bar_graph_data import graph_data_dict, specific_pie_chart
 from django.contrib import messages
 from main.tables import ProductHTMxMultiColumnTable
 from main.filters import ErvFilter
@@ -183,16 +183,36 @@ def remove_erv(request, pk):
     return HttpResponse(status=200, headers={'HX-Trigger': 'Changed'})
 
 @login_required
-def bar_graph(request, pk, year):
+def bar_graph(request, pk, year, month='Ukupno'):
     selectedErv = get_object_or_404(ERV, pk=pk)
     selectedWorker = selectedErv.worker
     workerErvs = get_list_or_404(ERV, worker=selectedWorker)
-    data=graph_data_dict(workerErvs, year)
+    graphs=graph_data_dict(workerErvs, year)
     context = {
-        'graph':json.dumps(data),
-        'years':data['years'],
+        'bar_chart':json.dumps(graphs['bar_chart']),
+        'pie_chart':json.dumps(graphs['pie_chart']),
+        'months':['Ukupno']+graphs['bar_chart']['labels'],
+        'years':graphs['years'],
         'pk':pk,
         'current_year':year,
+        'current_month':month,
         'worker': workerErvs[0].worker.name + ' ' + workerErvs[0].worker.surname
-               }
-    return render(request, 'graphs/bar_graph.html', context)
+        }
+    print(context)
+    return render(request, 'graphs/graph.html', context)
+
+@login_required
+def pie(request, pk, year, month='Ukupno'):
+    selectedErv = get_object_or_404(ERV, pk=pk)
+    selectedWorker = selectedErv.worker
+    workerErvs = get_list_or_404(ERV, worker=selectedWorker)
+    pie_chart=specific_pie_chart(workerErvs, year, month)
+    context = {
+        'pie_chart':json.dumps(pie_chart),
+        'months':['Ukupno']+pie_chart['months'],
+        'pk':pk,
+        'current_year':year,
+        'current_month':month,
+        }
+    print(context)
+    return render(request, 'graphs/month_pie_chart.html', context)
