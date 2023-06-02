@@ -1,0 +1,37 @@
+{% block pie %}
+<div id="pie">
+  <div class="row">
+    <div class="col position-relative me-3">
+      <div class="dropdown position-absolute top-0 start-100 translate-middle">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ current_month }}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          {% for month in months %}
+          {% if month == current_month %}
+            <button 
+                class="dropdown-item active" 
+                hx-get="{% url 'main:pie' pk=pk year=current_year month=month %}#chart2"
+                hx-target="#pie"
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-indicator="#loadPie"
+            >{{ month }}</button>
+            {% else %}
+            <button 
+                class="dropdown-item" 
+                hx-get="{% url 'main:pie' pk=pk year=current_year month=month %}#chart2"
+                hx-target="#pie"
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-indicator="#loadPie"
+            >{{ month }}</button>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% include 'graphs/pie_chart_partial.html' %}
+</div>
+{% endblock %}

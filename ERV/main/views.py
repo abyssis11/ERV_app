@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.core.files.storage import default_storage
 from ERV.settings import BASE_DIR
 from utils.loadingCSV_from_upload import uploading_csv, validate_file_extension, validate_file_content_type
-from utils.bar_graph_data import graph_data_dict, specific_pie_chart
+from utils.bar_graph_data import graph_data_dict, specific_pie_chart, total_pie_chart
 from django.contrib import messages
 from main.tables import ProductHTMxMultiColumnTable
 from main.filters import ErvFilter
@@ -198,7 +198,7 @@ def bar_graph(request, pk, year, month='Ukupno'):
         'current_month':month,
         'worker': workerErvs[0].worker.name + ' ' + workerErvs[0].worker.surname
         }
-    print(context)
+    #print(context)
     return render(request, 'graphs/graph.html', context)
 
 @login_required
@@ -214,5 +214,35 @@ def pie(request, pk, year, month='Ukupno'):
         'current_year':year,
         'current_month':month,
         }
-    print(context)
-    return render(request, 'graphs/month_pie_chart.html', context)
+    #print('hi')
+    return render(request, 'graphs/specific_pie_chart.html', context)
+
+@login_required
+def total_pie(request, year, month='Ukupno'):
+    allErvs = get_list_or_404(ERV)
+    print(allErvs)
+    pie_chart=total_pie_chart(allErvs, year, month)
+    context = {
+        'pie_chart':json.dumps(pie_chart),
+        'months':['Ukupno']+pie_chart['months'],
+        'years': pie_chart['years'],
+        'current_year':year,
+        'current_month':month,
+        }
+    #print(context)
+    return render(request, 'graphs/total_pie_chart.html', context)
+
+@login_required
+def total_pie_partial(request, year, month='Ukupno'):
+    allErvs = get_list_or_404(ERV)
+    print(allErvs)
+    pie_chart=total_pie_chart(allErvs, year, month)
+    context = {
+        'pie_chart':json.dumps(pie_chart),
+        'months':['Ukupno']+pie_chart['months'],
+        'years': pie_chart['years'],
+        'current_year':year,
+        'current_month':month,
+        }
+    #print(context)
+    return render(request, 'graphs/total_pie_partial.html', context)

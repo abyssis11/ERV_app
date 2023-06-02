@@ -54,6 +54,14 @@
                     <i class="bi bi-download"></i>
                     <span>XLSX</span>
                 </a>
+                <a 
+                    class="btn btn-secondary"
+                    hx-get="{% url 'main:total_pie' year=2023 month='Ukupno' %}"
+                    hx-target="#graph"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"> 
+                    <i class="bi bi-pie-chart-fill"></i>
+                </a>
             </div>
 
             <div class="col">

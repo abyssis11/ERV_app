@@ -1,6 +1,6 @@
-<div class="modal-content" >
+<div class="modal-content">
     <div class="modal-header">
-        <h3 class="modal-title">Izvještaj za {{ worker }}</h3>
+        <h3 class="modal-title">Izvještaj za sve radnike</h3>
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               {{current_year}}
@@ -10,7 +10,7 @@
               {% if year == current_year %}
                 <button 
                     class="dropdown-item active" 
-                    hx-get="{% url 'main:bar_graph' pk=pk year=year month='Ukupno' %}"
+                    hx-get="{% url 'main:total_pie' year=year month='Ukupno' %}"
                     hx-target="#graph"
                     hx-trigger="click"
                     hx-swap="innerHTML"
@@ -19,7 +19,7 @@
                 {% else %}
                 <button 
                     class="dropdown-item" 
-                    hx-get="{% url 'main:bar_graph' pk=pk year=year month='Ukupno' %}"
+                    hx-get="{% url 'main:total_pie' year=year month='Ukupno' %}"
                     hx-target="#graph"
                     hx-trigger="click"
                     hx-swap="innerHTML"
@@ -32,16 +32,12 @@
     </div>
     <div class="modal-body">
         <div class="progress" id="loadPie">
-          <div class="indeterminate"></div>
-        </div> 
-        <div class="mb-5 mx-5">
-            {% include 'graphs/bar_chart.html' %}
-        </div>
-      <hr>
+            <div class="indeterminate"></div>
+        </div>   
         <div class="m-5">
-          {% block pie %}
-          {% include 'graphs/specific_pie_chart.html' %}
-          {% endblock %}
+            {% block pie %}
+            {% include 'graphs/total_pie_partial.html' %}
+            {% endblock %}      
         </div>
     </div>
 </div>

@@ -15,5 +15,7 @@ urlpatterns = [
     path('edit_erv/<int:pk>/', views.edit_erv, name='edit_erv'),
     path('remove_erv/<int:pk>/', views.remove_erv, name='remove_erv'),
     path('bar_graph/<int:pk>/<str:year>/<str:month>/', views.bar_graph, name='bar_graph'),
-    path('pie/<int:pk>/<str:year>/<str:month>/', views.pie, name='pie')
+    path('pie/<int:pk>/<str:year>/<str:month>/', views.pie, name='pie'),
+    path('total_pie/<str:year>/<str:month>/', views.total_pie, name='total_pie'),
+    path('total_pie_partial/<str:year>/<str:month>/', views.total_pie_partial, name='total_pie_partial')
 ]
