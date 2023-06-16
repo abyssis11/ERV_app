@@ -84,3 +84,35 @@ def specific_pie_chart(workerErvs, year, month):
         pie_chart['data'].append(pie_chart[label])
 
     return pie_chart
+
+def total_pie_chart(allErvs, year, month):
+    pie_chart = {
+        'Redovni rad': 0,
+        'Putni nalog': 0,
+        'Bolovanje': 0,
+        'Slobodan dan': 0,
+        'Godišnji odmor': 0,
+        'Rad od kuće': 0,
+        'labels': WORK_FLAGS, 
+        'data': [],
+        'months': MONTHS,
+        'years': []
+    }
+    active_years = []
+    for erv in allErvs:
+        if month == 'Ukupno':
+            if erv.current_date.year == int(year):
+                pie_chart[erv.flag] +=1
+        else:
+            if erv.current_date.year == int(year) and erv.current_date.month == MONTH_VALUE[month]:
+                pie_chart[erv.flag] +=1
+
+        if str(erv.current_date.year) not in active_years:
+            active_years.append(str(erv.current_date.year))
+
+    pie_chart['years'] = active_years
+
+    for label in pie_chart['labels']:
+        pie_chart['data'].append(pie_chart[label])
+
+    return pie_chart
